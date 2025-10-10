@@ -1,0 +1,10 @@
+---
+- name: Deploy Configurations to Devices Using CloudVision Portal # (1)!
+  hosts: CAMPUS
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Push Configuration to CVaaS Studio
+      ansible.builtin.import_role:
+        name: arista.avd.cv_deploy
+        
