@@ -1,0 +1,3 @@
+
+# Set Inventory for CloudVision host.
+cv_inventory_hostname: "cvaas"
