@@ -12,5 +12,29 @@ all:
           ansible_connection: httpapi
           ansible_user: avdsrvaccnt
           ansible_password: "{{ lookup('env', 'CVP_PASSWORD') }}"
-          ansible_host: www.arista.io
-      TODO: Add demo lab device inventory from CVaaS
+          ansible_host: www.cv-prod-us-central1-c.arista.io
+    CAMPUS:
+      vars:
+        ansible_user: admin
+        ansible_ssh_pass: admin
+        ansible_network_os: eos
+        ansible_connection: network_cli
+        ansible_become: yes
+        ansible_become_method: enable
+        ansible_become_password: admin
+      children:
+        BD1:
+          children:
+            SPINES:
+              hosts:
+                SC-B1-Core1:
+                  ansible_host: 10.0.1.2
+                SC-B1-Core2:
+                  ansible_host: 10.0.2.2
+            LEAVES:
+              hosts:
+                SC-B1-IDF1:
+                  ansible_host: 10.10.0.10
+
+
+    
