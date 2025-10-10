@@ -34,6 +34,8 @@ sequenceDiagram
 
 TODO: create list of required softward versions
 
+* Python 3.12 or Newer
+
 ## Clone Git Respository 
 
 Clone down the git repository which contains the lab's working code into a working directory 
