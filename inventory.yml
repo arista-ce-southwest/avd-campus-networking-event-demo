@@ -1,3 +1,16 @@
-TODO: Create AVD demo ansible inventory structure data
-TODO: Add CVaaS connections for Ansible
-TODO: Add demo lab device inventory from CVaaS
+---
+all:
+  children:
+    CLOUDVISION:
+      hosts:
+        cvaas:
+          # Ansible variables for CVaaS connection
+          ansible_httpapi_use_ssl: true
+          ansible_httpapi_validate_certs: true
+          ansible_httpapi_port: 443
+          ansible_network_os: eos
+          ansible_connection: httpapi
+          ansible_user: avdsrvaccnt
+          ansible_password: "{{ lookup('env', 'CVP_PASSWORD') }}"
+          ansible_host: www.arista.io
+      TODO: Add demo lab device inventory from CVaaS
