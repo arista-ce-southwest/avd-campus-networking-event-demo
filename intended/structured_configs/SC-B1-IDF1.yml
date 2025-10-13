@@ -23,6 +23,160 @@ ethernet_interfaces:
   peer: SC-B1-Core1
   peer_interface: Ethernet4
   peer_type: l3spine
+- name: Ethernet10
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet11
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet12
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet13
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet14
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet15
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet16
+  description: PC
+  shutdown: false
+  spanning_tree_bpduguard: enabled
+  spanning_tree_portfast: edge
+  peer_type: network_port
+  port_profile: PC-PROFILE
+  switchport:
+    enabled: true
+    mode: access
+    access_vlan: 12
+- name: Ethernet3
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet4
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet5
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet6
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet7
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet8
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
+- name: Ethernet9
+  description: AP
+  shutdown: false
+  peer_type: network_port
+  port_profile: AP-PROFILE
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,11
+      native_vlan: 10
 hostname: SC-B1-IDF1
 ip_igmp_snooping:
   globally_enabled: true

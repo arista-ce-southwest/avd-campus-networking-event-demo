@@ -264,6 +264,20 @@ vlan 13
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | L2_SC-B1-Core1_Ethernet4 | *trunk | *10-13 | *- | *- | 1 |
+| Ethernet3 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet4 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet5 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet6 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet7 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet8 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet9 | AP | trunk | 10-11 | 10 | - | - |
+| Ethernet10 | PC | access | 12 | - | - | - |
+| Ethernet11 | PC | access | 12 | - | - | - |
+| Ethernet12 | PC | access | 12 | - | - | - |
+| Ethernet13 | PC | access | 12 | - | - | - |
+| Ethernet14 | PC | access | 12 | - | - | - |
+| Ethernet15 | PC | access | 12 | - | - | - |
+| Ethernet16 | PC | access | 12 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
@@ -275,6 +289,125 @@ interface Ethernet1
    description L2_SC-B1-Core1_Ethernet4
    no shutdown
    channel-group 1 mode active
+!
+interface Ethernet3
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet4
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet5
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet6
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet7
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet8
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet9
+   description AP
+   no shutdown
+   switchport trunk native vlan 10
+   switchport trunk allowed vlan 10,11
+   switchport mode trunk
+   switchport
+!
+interface Ethernet10
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet11
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet12
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet13
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet14
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet15
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+!
+interface Ethernet16
+   description PC
+   no shutdown
+   switchport access vlan 12
+   switchport mode access
+   switchport
+   spanning-tree portfast
+   spanning-tree bpduguard enable
 ```
 
 ### Port-Channel Interfaces
