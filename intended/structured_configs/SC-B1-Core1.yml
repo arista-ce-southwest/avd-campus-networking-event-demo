@@ -62,7 +62,6 @@ loopback_interfaces:
   description: ROUTER_ID
   shutdown: false
   ip_address: 172.16.0.1/32
-  ospf_area: 0.0.0.0
 management_api_http:
   enable_https: true
   enable_vrfs:
@@ -113,18 +112,54 @@ port_channel_interfaces:
     mode: trunk
     trunk:
       allowed_vlan: '10'
-router_ospf:
-  process_ids:
-  - id: 100
-    passive_interface_default: true
-    router_id: 172.16.0.1
-    bfd_enable: false
-    no_passive_interfaces:
-    - Vlan4093
-    max_lsa: 12000
-    redistribute:
-      connected:
-        enabled: true
+route_maps:
+- name: RM-MLAG-PEER-IN
+  sequence_numbers:
+  - sequence: 10
+    type: permit
+    description: Make routes learned over MLAG Peer-link less preferred on spines to ensure optimal routing
+    set:
+    - origin incomplete
+router_bgp:
+  as: '65200'
+  router_id: 172.16.0.1
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  updates:
+    wait_install: true
+  bgp:
+    default:
+      ipv4_unicast: false
+  peer_groups:
+  - name: MLAG-IPv4-UNDERLAY-PEER
+    type: ipv4
+    remote_as: '65200'
+    description: SC-B1-Core2
+    next_hop_self: true
+    send_community: all
+    maximum_routes: 12000
+    route_map_in: RM-MLAG-PEER-IN
+  - name: IPv4-UNDERLAY-PEERS
+    type: ipv4
+    send_community: all
+    maximum_routes: 12000
+  neighbors:
+  - ip_address: 172.61.1.1
+    peer_group: MLAG-IPv4-UNDERLAY-PEER
+    peer: SC-B1-Core2
+    description: SC-B1-Core2_Vlan4093
+  redistribute:
+    attached_host:
+      enabled: true
+    connected:
+      enabled: true
+  address_family_ipv4:
+    peer_groups:
+    - name: MLAG-IPv4-UNDERLAY-PEER
+      activate: true
+    - name: IPv4-UNDERLAY-PEERS
+      activate: true
 service_routing_protocols_model: multi-agent
 spanning_tree:
   mode: mstp
@@ -138,8 +173,6 @@ vlan_interfaces:
   description: MLAG_L3
   shutdown: false
   ip_address: 172.61.1.0/31
-  ospf_network_point_to_point: true
-  ospf_area: 0.0.0.0
   mtu: 9214
 - name: Vlan4094
   description: MLAG

@@ -35,9 +35,11 @@
   - [Virtual Router MAC Address](#virtual-router-mac-address)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Router OSPF](#router-ospf)
+  - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
+- [Filters](#filters)
+  - [Route-maps](#route-maps)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -387,7 +389,6 @@ interface Loopback0
    description ROUTER_ID
    no shutdown
    ip address 172.16.0.1/32
-   ip ospf area 0.0.0.0
 ```
 
 ### VLAN Interfaces
@@ -449,8 +450,6 @@ interface Vlan4093
    no shutdown
    mtu 9214
    ip address 172.61.1.0/31
-   ip ospf network point-to-point
-   ip ospf area 0.0.0.0
 !
 interface Vlan4094
    description MLAG
@@ -508,37 +507,75 @@ ip routing
 | default | False |
 | default | false |
 
-### Router OSPF
+### Router BGP
 
-#### Router OSPF Summary
+ASN Notation: asplain
 
-| Process ID | Router ID | Default Passive Interface | No Passive Interface | BFD | Max LSA | Default Information Originate | Log Adjacency Changes Detail | Auto Cost Reference Bandwidth | Maximum Paths | MPLS LDP Sync Default | Distribute List In |
-| ---------- | --------- | ------------------------- | -------------------- | --- | ------- | ----------------------------- | ---------------------------- | ----------------------------- | ------------- | --------------------- | ------------------ |
-| 100 | 172.16.0.1 | enabled | Vlan4093 <br> | disabled | 12000 | disabled | disabled | - | - | - | - |
+#### Router BGP Summary
 
-#### Router OSPF Router Redistribution
+| BGP AS | Router ID |
+| ------ | --------- |
+| 65200 | 172.16.0.1 |
 
-| Process ID | Source Protocol | Include Leaked | Route Map |
-| ---------- | --------------- | -------------- | --------- |
-| 100 | connected | disabled | - |
+| BGP Tuning |
+| ---------- |
+| update wait-install |
+| no bgp default ipv4-unicast |
+| maximum-paths 4 ecmp 4 |
 
-#### OSPF Interfaces
+#### Router BGP Peer Groups
 
-| Interface | Area | Cost | Point To Point |
-| -------- | -------- | -------- | -------- |
-| Vlan4093 | 0.0.0.0 | - | True |
-| Loopback0 | 0.0.0.0 | - | - |
+##### IPv4-UNDERLAY-PEERS
 
-#### Router OSPF Device Configuration
+| Settings | Value |
+| -------- | ----- |
+| Address Family | ipv4 |
+| Send community | all |
+| Maximum routes | 12000 |
+
+##### MLAG-IPv4-UNDERLAY-PEER
+
+| Settings | Value |
+| -------- | ----- |
+| Address Family | ipv4 |
+| Remote AS | 65200 |
+| Next-hop self | True |
+| Send community | all |
+| Maximum routes | 12000 |
+
+#### BGP Neighbors
+
+| Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive | TTL Max Hops |
+| -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- | ------------ |
+| 172.61.1.1 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default | - | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - | - | - | - | - | - |
+
+#### Router BGP Device Configuration
 
 ```eos
 !
-router ospf 100
+router bgp 65200
    router-id 172.16.0.1
-   passive-interface default
-   no passive-interface Vlan4093
+   update wait-install
+   no bgp default ipv4-unicast
+   maximum-paths 4 ecmp 4
+   neighbor IPv4-UNDERLAY-PEERS peer group
+   neighbor IPv4-UNDERLAY-PEERS send-community
+   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
+   neighbor MLAG-IPv4-UNDERLAY-PEER peer group
+   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65200
+   neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self
+   neighbor MLAG-IPv4-UNDERLAY-PEER description SC-B1-Core2
+   neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in
+   neighbor MLAG-IPv4-UNDERLAY-PEER send-community
+   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000
+   neighbor 172.61.1.1 peer group MLAG-IPv4-UNDERLAY-PEER
+   neighbor 172.61.1.1 description SC-B1-Core2_Vlan4093
    redistribute connected
-   max-lsa 12000
+   redistribute attached-host
+   !
+   address-family ipv4
+      neighbor IPv4-UNDERLAY-PEERS activate
+      neighbor MLAG-IPv4-UNDERLAY-PEER activate
 ```
 
 ## Multicast
@@ -554,6 +591,27 @@ router ospf 100
 #### IP IGMP Snooping Device Configuration
 
 ```eos
+```
+
+## Filters
+
+### Route-maps
+
+#### Route-maps Summary
+
+##### RM-MLAG-PEER-IN
+
+| Sequence | Type | Match | Set | Sub-Route-Map | Continue |
+| -------- | ---- | ----- | --- | ------------- | -------- |
+| 10 | permit | - | origin incomplete | - | - |
+
+#### Route-maps Device Configuration
+
+```eos
+!
+route-map RM-MLAG-PEER-IN permit 10
+   description Make routes learned over MLAG Peer-link less preferred on spines to ensure optimal routing
+   set origin incomplete
 ```
 
 ## VRF Instances
