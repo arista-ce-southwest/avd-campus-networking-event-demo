@@ -310,7 +310,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | MLAG_SC-B1-Core2_Ethernet1 | *trunk | *- | *- | *MLAG | 1 |
 | Ethernet2 | MLAG_SC-B1-Core2_Ethernet2 | *trunk | *- | *- | *MLAG | 1 |
-| Ethernet4 | L2_SC-B1-IDF1_Ethernet1 | *trunk | *10 | *- | *- | 4 |
+| Ethernet4 | L2_SC-B1-IDF1_Ethernet1 | *trunk | *10-13 | *- | *- | 4 |
 
 *Inherited from Port-Channel Interface
 
@@ -343,7 +343,7 @@ interface Ethernet4
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_SC-B1-Core2_Port-Channel1 | trunk | - | - | MLAG | - | - | - | - |
-| Port-Channel4 | L2_SC-B1-IDF1_Port-Channel1 | trunk | 10 | - | - | - | - | 4 | - |
+| Port-Channel4 | L2_SC-B1-IDF1_Port-Channel1 | trunk | 10-13 | - | - | - | - | 4 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -359,7 +359,7 @@ interface Port-Channel1
 interface Port-Channel4
    description L2_SC-B1-IDF1_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10
+   switchport trunk allowed vlan 10-13
    switchport mode trunk
    switchport
    mlag 4

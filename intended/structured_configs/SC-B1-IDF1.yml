@@ -69,7 +69,7 @@ port_channel_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: '10'
+      allowed_vlan: 10-13
 service_routing_protocols_model: multi-agent
 spanning_tree:
   mode: mstp
@@ -96,6 +96,15 @@ vlans:
 - id: 10
   name: INBAND_MGMT
   tenant: system
+- id: 11
+  name: WLAN
+  tenant: CAMPUS
+- id: 12
+  name: PC
+  tenant: CAMPUS
+- id: 13
+  name: AP-MGMT
+  tenant: CAMPUS
 vrfs:
 - name: default
   ip_routing: false

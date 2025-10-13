@@ -232,6 +232,9 @@ vlan internal order ascending range 1006 1199
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
 | 10 | INBAND_MGMT | - |
+| 11 | WLAN | - |
+| 12 | PC | - |
+| 13 | AP-MGMT | - |
 
 ### VLANs Device Configuration
 
@@ -239,6 +242,15 @@ vlan internal order ascending range 1006 1199
 !
 vlan 10
    name INBAND_MGMT
+!
+vlan 11
+   name WLAN
+!
+vlan 12
+   name PC
+!
+vlan 13
+   name AP-MGMT
 ```
 
 ## Interfaces
@@ -251,7 +263,7 @@ vlan 10
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | L2_SC-B1-Core1_Ethernet4 | *trunk | *10 | *- | *- | 1 |
+| Ethernet1 | L2_SC-B1-Core1_Ethernet4 | *trunk | *10-13 | *- | *- | 1 |
 
 *Inherited from Port-Channel Interface
 
@@ -273,7 +285,7 @@ interface Ethernet1
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | L2_SPINES_Port-Channel4 | trunk | 10 | - | - | - | - | - | - |
+| Port-Channel1 | L2_SPINES_Port-Channel4 | trunk | 10-13 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -282,7 +294,7 @@ interface Ethernet1
 interface Port-Channel1
    description L2_SPINES_Port-Channel4
    no shutdown
-   switchport trunk allowed vlan 10
+   switchport trunk allowed vlan 10-13
    switchport mode trunk
    switchport
 ```

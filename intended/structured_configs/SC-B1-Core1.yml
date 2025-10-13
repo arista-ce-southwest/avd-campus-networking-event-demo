@@ -111,7 +111,7 @@ port_channel_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: '10'
+      allowed_vlan: 10-13
 route_maps:
 - name: RM-MLAG-PEER-IN
   sequence_numbers:
