@@ -4,8 +4,9 @@
 fabric_name: CAMPUS
 
 # OOB Management network default gateway.
-mgmt_gateway: 10.10.0.1
-mgmt_interface: Vlan10
+mgmt_gateway: null
+mgmt_interface: null
+mgmt_interface_vrf: default
 
 # local users
 local_users:
