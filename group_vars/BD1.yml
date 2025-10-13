@@ -1,0 +1,49 @@
+---
+### Building Fabric Data Structure
+### Here is where physical switch-to-switch connection scaffolding is contructured
+
+# Spine Switches
+l3spine:
+  defaults:
+    platform: ['default']
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 4096
+    loopback_ipv4_pool: 172.16.0.0/24
+    mlag_peer_ipv4_pool: 169.254.0.0/24
+    mlag_peer_l3_ipv4_pool: 172.61.1.0/24
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    mlag_interfaces: [Ethernet1, Ethernet2]
+    inband_mgmt_subnet: 10.10.10.0/24
+    inband_mgmt_vlan: 10
+  node_groups:
+    - group: SPINES
+      nodes:
+        - name: SC-B1-Core1
+          id: 1
+          mgmt_ip: 10.10.0.21/24
+        - name: SC-B1-Core2
+          id: 2
+          mgmt_ip: 10.10.0.22/24
+
+# IDF - Leaf Switches
+l2leaf:
+  defaults:
+    platform: ['default']
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+    mlag_peer_ipv4_pool: 169.254.0.0/24
+    inband_mgmt_subnet: 10.10.10.0/24
+    inband_mgmt_vlan: 10
+  node_groups:
+    - group: IDF1
+      mlag: false
+      uplink_interfaces: [Ethernet1,Ethernet2]
+      #mlag_interfaces: [Ethernet2, Ethernet3]
+      filter:
+        tags: [ "110", "120", "130" ]
+      nodes:
+        - name: SC-B1-IDF1
+          id: 3
+          mgmt_ip: 10.10.0.10/24
+          uplink_switches: [SC-B1-Core1,SC-B1-Core2]
+          uplink_switch_interfaces: [Ethernet4]

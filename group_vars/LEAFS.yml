@@ -1,0 +1,4 @@
+---
+### group_vars/LEAFS.yml
+
+type: l2leaf     # Must be l2leaf

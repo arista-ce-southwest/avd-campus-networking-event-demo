@@ -1,0 +1,43 @@
+---
+### Campus Fabric Data Structure
+
+fabric_name: CAMPUS
+
+# OOB Management network default gateway.
+mgmt_gateway: 10.10.0.1
+mgmt_interface: Vlan10
+
+# local users
+local_users:
+  - name: admin
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$eucN5ngreuExDgwS$xnD7T8jO..GBDX0DUlp.hn.W7yW94xTjSanqgaQGBzPIhDAsyAl9N4oScHvOMvf07uVBFI4mKMxwdVEUVKgY/."
+
+# AAA Authorization
+aaa_authorization:
+  exec:
+    default: local
+
+# dns servers.
+name_servers:
+  - 8.8.4.4
+  - 8.8.8.8
+
+# NTP Servers IP or DNS name, first NTP server will be preferred, and sourced from Management VRF
+ntp_settings:
+  server_vrf: use_mgmt_interface_vrf
+  servers:
+    - name: time.google.com
+    - name: pool.ntp.org
+
+# CloudVision Portal definitions
+cvp_instance_ips:
+  - apiserver.arista.io
+terminattr_smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
+terminattr_ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+terminattr_disable_aaa: false
+terminattr_cvaddr: "apiserver.arista.io:443"
+terminattr_cvauth: "token-secure,/tmp/cv-onboarding-token"
+# terminattr_cvvrf: MGMT # VRF Management
+terminattr_taillogs: true
