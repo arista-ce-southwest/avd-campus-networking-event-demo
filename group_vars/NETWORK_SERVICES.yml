@@ -9,6 +9,29 @@ tenants:
   - name: CAMPUS
     vrfs:
       - name: default
+        l3_interfaces:
+          - interfaces: [ Ethernet3 ]
+            ip_addresses: [ 10.0.1.2/30 ]
+            nodes: [ SC-B1-Core1 ]
+            description: Firewall Peering
+            enabled: true
+          - interfaces: [ Ethernet3 ]
+            ip_addresses: [ 10.0.2.2/30 ]
+            nodes: [ SC-B1-Core2 ]
+            description: Firewall Peering
+            enabled: true
+        bgp_peer_groups:
+          - name: FIREWALL
+            remote_as: 65100
+            send_community: all
+            maximum_routes: 0
+        bgp_peers:
+          - ip_address: 10.0.1.1
+            peer_group: FIREWALL
+            nodes: [ SC-B1-Core1 ]
+          - ip_address: 10.0.2.1
+            peer_group: FIREWALL
+            nodes: [ SC-B1-Core2 ]
         svis:
           - id: 10
             name: 'Inband Management Network'
