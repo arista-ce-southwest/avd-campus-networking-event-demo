@@ -28,9 +28,9 @@ all:
             SPINES:
               hosts:
                 SC-B1-Core1:
-                  ansible_host: 10.0.1.2
+                  ansible_host: 10.10.0.21
                 SC-B1-Core2:
-                  ansible_host: 10.0.2.2
+                  ansible_host: 10.10.0.22
             LEAVES:
               hosts:
                 SC-B1-IDF1:
