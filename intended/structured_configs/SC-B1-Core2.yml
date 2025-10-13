@@ -32,6 +32,13 @@ ethernet_interfaces:
   peer: SC-B1-Core1
   peer_interface: Ethernet2
   peer_type: mlag_peer
+- name: Ethernet3
+  description: Firewall Peering
+  shutdown: false
+  ip_address: 10.0.2.2/30
+  peer_type: l3_interface
+  switchport:
+    enabled: false
 hostname: SC-B1-Core2
 ip_igmp_snooping:
   globally_enabled: true
@@ -126,11 +133,17 @@ router_bgp:
     type: ipv4
     send_community: all
     maximum_routes: 12000
+  - name: FIREWALL
+    remote_as: '65100'
+    send_community: all
+    maximum_routes: 0
   neighbors:
   - ip_address: 172.61.1.0
     peer_group: MLAG-IPv4-UNDERLAY-PEER
     peer: SC-B1-Core1
     description: SC-B1-Core1_Vlan4093
+  - ip_address: 10.0.2.1
+    peer_group: FIREWALL
   redistribute:
     connected:
       enabled: true
@@ -139,6 +152,9 @@ router_bgp:
     - name: MLAG-IPv4-UNDERLAY-PEER
       activate: true
     - name: IPv4-UNDERLAY-PEERS
+      activate: true
+    neighbors:
+    - ip_address: 10.0.2.1
       activate: true
 service_routing_protocols_model: multi-agent
 spanning_tree:

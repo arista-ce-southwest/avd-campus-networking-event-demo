@@ -313,6 +313,12 @@ vlan 4094
 
 *Inherited from Port-Channel Interface
 
+##### IPv4
+
+| Interface | Description | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet3 | Firewall Peering | - | 10.0.2.2/30 | default | - | False | - | - |
+
 #### Ethernet Interfaces Device Configuration
 
 ```eos
@@ -326,6 +332,12 @@ interface Ethernet2
    description MLAG_SC-B1-Core1_Ethernet2
    no shutdown
    channel-group 1 mode active
+!
+interface Ethernet3
+   description Firewall Peering
+   no shutdown
+   no switchport
+   ip address 10.0.2.2/30
 ```
 
 ### Port-Channel Interfaces
@@ -508,6 +520,14 @@ ASN Notation: asplain
 
 #### Router BGP Peer Groups
 
+##### FIREWALL
+
+| Settings | Value |
+| -------- | ----- |
+| Remote AS | 65100 |
+| Send community | all |
+| Maximum routes | 0 (no limit) |
+
 ##### IPv4-UNDERLAY-PEERS
 
 | Settings | Value |
@@ -530,6 +550,7 @@ ASN Notation: asplain
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive | TTL Max Hops |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- | ------------ |
+| 10.0.2.1 | Inherited from peer group FIREWALL | default | - | Inherited from peer group FIREWALL | Inherited from peer group FIREWALL | - | - | - | - | - | - |
 | 172.61.1.0 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default | - | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - | - | - | - | - | - |
 
 #### Router BGP Device Configuration
@@ -541,6 +562,10 @@ router bgp 65200
    update wait-install
    no bgp default ipv4-unicast
    maximum-paths 4 ecmp 4
+   neighbor FIREWALL peer group
+   neighbor FIREWALL remote-as 65100
+   neighbor FIREWALL send-community
+   neighbor FIREWALL maximum-routes 0
    neighbor IPv4-UNDERLAY-PEERS peer group
    neighbor IPv4-UNDERLAY-PEERS send-community
    neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
@@ -551,6 +576,7 @@ router bgp 65200
    neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in
    neighbor MLAG-IPv4-UNDERLAY-PEER send-community
    neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000
+   neighbor 10.0.2.1 peer group FIREWALL
    neighbor 172.61.1.0 peer group MLAG-IPv4-UNDERLAY-PEER
    neighbor 172.61.1.0 description SC-B1-Core1_Vlan4093
    redistribute connected
@@ -558,6 +584,7 @@ router bgp 65200
    address-family ipv4
       neighbor IPv4-UNDERLAY-PEERS activate
       neighbor MLAG-IPv4-UNDERLAY-PEER activate
+      neighbor 10.0.2.1 activate
 ```
 
 ## Multicast
