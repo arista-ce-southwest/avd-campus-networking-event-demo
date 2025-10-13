@@ -39,6 +39,10 @@ all:
       children:
         SPINES:
         LEAVES:
+    NETWORK_PORTS:
+      children:
+        SPINES:
+        LEAVES:
 
 
     
