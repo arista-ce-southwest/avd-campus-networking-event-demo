@@ -5,7 +5,7 @@
 # Spine Switches
 l3spine:
   defaults:
-    platform: ['default']
+    platform: default
     spanning_tree_mode: mstp
     spanning_tree_priority: 4096
     loopback_ipv4_pool: 172.16.0.0/24
@@ -28,7 +28,7 @@ l3spine:
 # IDF - Leaf Switches
 l2leaf:
   defaults:
-    platform: ['default']
+    platform: default
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
     mlag_peer_ipv4_pool: 169.254.0.0/24
