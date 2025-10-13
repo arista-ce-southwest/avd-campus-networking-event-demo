@@ -2,6 +2,9 @@
 ### group_vars/NETWORK_SERVICES.yml
 ### Here is where Network logic is structured such as VARP and dynamoc routing
 
+# Campus routing 
+underlay_routing_protocol: ebgp
+
 tenants:
   - name: CAMPUS
     vrfs:

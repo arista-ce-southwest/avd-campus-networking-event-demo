@@ -38,25 +38,10 @@ l2leaf:
       mlag: false
       uplink_interfaces: [Ethernet1,Ethernet2]
       filter:
-        tags: [ "110", "120", "130" ]
+        tags: [ "10", "11", "12","13" ]
       nodes:
         - name: SC-B1-IDF1
           id: 3
           mgmt_ip: 10.10.0.10/24
           uplink_switches: [SC-B1-Core1,SC-B1-Core2]
           uplink_switch_interfaces: [Ethernet4]
-
-# Campus routing 
-underlay_routing_protocol: ebgp
-
-#### WAN/Core Edge Links ####
-core_interfaces:
-  p2p_links:
-    - ip: [ 10.0.1.2/30]
-      nodes: [ SC-B1-Core1, WAN ]
-      interfaces: [ Ethernet3]
-      include_in_underlay_protocol: true
-    # - ip: [ 10.0.2.2/30]
-    #   nodes: [ SC-B1-Core2, WAN ]
-    #   interfaces: [ Ethernet3]
-    #   include_in_underlay_protocol: true
