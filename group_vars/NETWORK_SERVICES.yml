@@ -1,0 +1,42 @@
+---
+### group_vars/NETWORK_SERVICES.yml
+### Here is where Network logic is structured such as VARP and dynamoc routing
+
+tenants:
+  - name: CAMPUS
+    vrfs:
+      - name: default
+        svis:
+          - id: 10
+            name: 'Management Network'
+            tags: ["10"]
+            enabled: true
+            ip_virtual_router_addresses:
+              - 10.10.0.1
+            nodes:
+              - node: SC-B1-Core1
+                ip_address: 10.10.0.21/24
+              - node: SC-B1-Core2
+                ip_address: 10.10.0.22/24
+          - id: 11
+            name: 'WLAN'
+            tags: ["11"]
+            enabled: true
+            ip_virtual_router_addresses:
+              - 10.11.0.1
+            nodes:
+              - node: SC-B1-Core1
+                ip_address: 10.11.0.21/24
+              - node: SC-B1-Core2
+                ip_address: 10.11.0.22/24
+          - id: 12
+            name: 'PC'
+            tags: ["130"]
+            enabled: true
+            ip_virtual_router_addresses:
+              - 10.12.0.1
+            nodes:
+              - node: SC-B1-Core1
+                ip_address: 10.12.0.21/24
+              - node: SC-B1-Core2
+                ip_address: 10.12.0.22/24
