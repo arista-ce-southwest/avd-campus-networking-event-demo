@@ -38,7 +38,7 @@ l2leaf:
       mlag: false
       uplink_interfaces: [Ethernet1,Ethernet2]
       filter:
-        tags: [ "10", "11", "12","13" ]
+        tags: [ "10", "11", "12" ]
       nodes:
         - name: SC-B1-IDF1
           id: 3

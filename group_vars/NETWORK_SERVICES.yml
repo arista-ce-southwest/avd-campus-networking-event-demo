@@ -66,15 +66,4 @@ tenants:
                 ip_address: 10.12.0.21/24
               - node: SC-B1-Core2
                 ip_address: 10.12.0.22/24
-          - id: 13
-            name: 'AP-MGMT'
-            tags: ["13"]
-            enabled: true
-            ip_virtual_router_addresses:
-              - 10.13.0.1
-            nodes:
-              - node: SC-B1-Core1
-                ip_address: 10.13.0.21/24
-              - node: SC-B1-Core2
-                ip_address: 10.13.0.22/24
           

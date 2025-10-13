@@ -269,7 +269,6 @@ vlan internal order ascending range 1006 1199
 | 10 | Inband Management Network | - |
 | 11 | WLAN | - |
 | 12 | PC | - |
-| 13 | AP-MGMT | - |
 | 4093 | MLAG_L3 | MLAG |
 | 4094 | MLAG | MLAG |
 
@@ -285,9 +284,6 @@ vlan 11
 !
 vlan 12
    name PC
-!
-vlan 13
-   name AP-MGMT
 !
 vlan 4093
    name MLAG_L3
@@ -397,7 +393,6 @@ interface Loopback0
 | Vlan10 | Inband Management Network | default | - | False |
 | Vlan11 | WLAN | default | - | False |
 | Vlan12 | PC | default | - | False |
-| Vlan13 | AP-MGMT | default | - | False |
 | Vlan4093 | MLAG_L3 | default | 9214 | False |
 | Vlan4094 | MLAG | default | 9214 | False |
 
@@ -408,7 +403,6 @@ interface Loopback0
 | Vlan10 |  default  |  10.10.0.22/24  |  -  |  10.10.0.1  |  -  |  -  |
 | Vlan11 |  default  |  10.11.0.22/24  |  -  |  10.11.0.1  |  -  |  -  |
 | Vlan12 |  default  |  10.12.0.22/24  |  -  |  10.12.0.1  |  -  |  -  |
-| Vlan13 |  default  |  10.13.0.22/24  |  -  |  10.13.0.1  |  -  |  -  |
 | Vlan4093 |  default  |  172.61.1.1/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  169.254.0.1/31  |  -  |  -  |  -  |  -  |
 
@@ -433,12 +427,6 @@ interface Vlan12
    no shutdown
    ip address 10.12.0.22/24
    ip virtual-router address 10.12.0.1
-!
-interface Vlan13
-   description AP-MGMT
-   no shutdown
-   ip address 10.13.0.22/24
-   ip virtual-router address 10.13.0.1
 !
 interface Vlan4093
    description MLAG_L3

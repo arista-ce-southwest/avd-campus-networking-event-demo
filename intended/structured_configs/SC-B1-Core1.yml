@@ -118,7 +118,7 @@ port_channel_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: 10-13
+      allowed_vlan: 10-12
 route_maps:
 - name: RM-MLAG-PEER-IN
   sequence_numbers:
@@ -227,15 +227,6 @@ vlan_interfaces:
   tenant: CAMPUS
   tags:
   - '12'
-- name: Vlan13
-  description: AP-MGMT
-  shutdown: false
-  ip_address: 10.13.0.21/24
-  ip_virtual_router_addresses:
-  - 10.13.0.1
-  tenant: CAMPUS
-  tags:
-  - '13'
 vlan_internal_order:
   allocation: ascending
   range:
@@ -260,9 +251,6 @@ vlans:
   tenant: CAMPUS
 - id: 12
   name: PC
-  tenant: CAMPUS
-- id: 13
-  name: AP-MGMT
   tenant: CAMPUS
 vrfs:
 - name: default

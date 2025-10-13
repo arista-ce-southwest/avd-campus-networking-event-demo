@@ -269,7 +269,6 @@ vlan internal order ascending range 1006 1199
 | 10 | INBAND_MGMT | - |
 | 11 | WLAN | - |
 | 12 | PC | - |
-| 13 | AP-MGMT | - |
 | 4093 | MLAG_L3 | MLAG |
 | 4094 | MLAG | MLAG |
 
@@ -285,9 +284,6 @@ vlan 11
 !
 vlan 12
    name PC
-!
-vlan 13
-   name AP-MGMT
 !
 vlan 4093
    name MLAG_L3
@@ -310,7 +306,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | MLAG_SC-B1-Core2_Ethernet1 | *trunk | *- | *- | *MLAG | 1 |
 | Ethernet2 | MLAG_SC-B1-Core2_Ethernet2 | *trunk | *- | *- | *MLAG | 1 |
-| Ethernet4 | L2_SC-B1-IDF1_Ethernet1 | *trunk | *10-13 | *- | *- | 4 |
+| Ethernet4 | L2_SC-B1-IDF1_Ethernet1 | *trunk | *10-12 | *- | *- | 4 |
 
 *Inherited from Port-Channel Interface
 
@@ -355,7 +351,7 @@ interface Ethernet4
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_SC-B1-Core2_Port-Channel1 | trunk | - | - | MLAG | - | - | - | - |
-| Port-Channel4 | L2_SC-B1-IDF1_Port-Channel1 | trunk | 10-13 | - | - | - | - | 4 | - |
+| Port-Channel4 | L2_SC-B1-IDF1_Port-Channel1 | trunk | 10-12 | - | - | - | - | 4 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -371,7 +367,7 @@ interface Port-Channel1
 interface Port-Channel4
    description L2_SC-B1-IDF1_Port-Channel1
    no shutdown
-   switchport trunk allowed vlan 10-13
+   switchport trunk allowed vlan 10-12
    switchport mode trunk
    switchport
    mlag 4
@@ -412,7 +408,6 @@ interface Loopback0
 | Vlan10 | Inband Management | default | 1500 | False |
 | Vlan11 | WLAN | default | - | False |
 | Vlan12 | PC | default | - | False |
-| Vlan13 | AP-MGMT | default | - | False |
 | Vlan4093 | MLAG_L3 | default | 9214 | False |
 | Vlan4094 | MLAG | default | 9214 | False |
 
@@ -423,7 +418,6 @@ interface Loopback0
 | Vlan10 |  default  |  10.10.0.2/24  |  -  |  10.10.0.1  |  -  |  -  |
 | Vlan11 |  default  |  10.11.0.21/24  |  -  |  10.11.0.1  |  -  |  -  |
 | Vlan12 |  default  |  10.12.0.21/24  |  -  |  10.12.0.1  |  -  |  -  |
-| Vlan13 |  default  |  10.13.0.21/24  |  -  |  10.13.0.1  |  -  |  -  |
 | Vlan4093 |  default  |  172.61.1.0/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  169.254.0.0/31  |  -  |  -  |  -  |  -  |
 
@@ -450,12 +444,6 @@ interface Vlan12
    no shutdown
    ip address 10.12.0.21/24
    ip virtual-router address 10.12.0.1
-!
-interface Vlan13
-   description AP-MGMT
-   no shutdown
-   ip address 10.13.0.21/24
-   ip virtual-router address 10.13.0.1
 !
 interface Vlan4093
    description MLAG_L3
