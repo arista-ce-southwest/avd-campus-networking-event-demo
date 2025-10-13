@@ -13,6 +13,7 @@ l3spine:
     mlag_peer_l3_ipv4_pool: 172.61.1.0/24
     virtual_router_mac_address: 00:1c:73:00:dc:01
     mlag_interfaces: [Ethernet1, Ethernet2]
+    bgp_as: 65200
   node_groups:
     - group: SPINES
       nodes:
@@ -45,5 +46,17 @@ l2leaf:
           uplink_switches: [SC-B1-Core1,SC-B1-Core2]
           uplink_switch_interfaces: [Ethernet4]
 
-# routing
-underlay_routing_protocol: ospf
+# Campus routing 
+underlay_routing_protocol: ebgp
+
+#### WAN/Core Edge Links ####
+core_interfaces:
+  p2p_links:
+    - ip: [ 10.0.1.2/30]
+      nodes: [ SC-B1-Core1, WAN ]
+      interfaces: [ Ethernet3]
+      include_in_underlay_protocol: true
+    # - ip: [ 10.0.2.2/30]
+    #   nodes: [ SC-B1-Core2, WAN ]
+    #   interfaces: [ Ethernet3]
+    #   include_in_underlay_protocol: true
