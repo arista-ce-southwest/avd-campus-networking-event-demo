@@ -35,7 +35,7 @@
   - [Virtual Router MAC Address](#virtual-router-mac-address)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Static Routes](#static-routes)
+  - [Router OSPF](#router-ospf)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [VRF Instances](#vrf-instances)
@@ -52,22 +52,21 @@
 
 | Management Interface | Description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Vlan10 | OOB_MANAGEMENT | oob | MGMT | 10.10.0.22/24 | 10.10.0.1 |
+| Management1 | OOB_MANAGEMENT | oob | default | 10.10.0.22/24 | - |
 
 ##### IPv6
 
 | Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
 | -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Vlan10 | OOB_MANAGEMENT | oob | MGMT | - | - |
+| Management1 | OOB_MANAGEMENT | oob | default | - | - |
 
 #### Management Interfaces Device Configuration
 
 ```eos
 !
-interface Vlan10
+interface Management1
    description OOB_MANAGEMENT
    no shutdown
-   vrf MGMT
    ip address 10.10.0.22/24
 ```
 
@@ -77,14 +76,14 @@ interface Vlan10
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 8.8.4.4 | MGMT | - |
-| 8.8.8.8 | MGMT | - |
+| 8.8.4.4 | default | - |
+| 8.8.8.8 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-ip name-server vrf MGMT 8.8.4.4
-ip name-server vrf MGMT 8.8.8.8
+ip name-server vrf default 8.8.4.4
+ip name-server vrf default 8.8.8.8
 ```
 
 ### NTP
@@ -95,22 +94,22 @@ ip name-server vrf MGMT 8.8.8.8
 
 | Interface | VRF |
 | --------- | --- |
-| Vlan10 | MGMT |
+| Management1 | default |
 
 ##### NTP Servers
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
 | ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
-| pool.ntp.org | MGMT | - | - | - | - | - | - | - | - |
-| time.google.com | MGMT | True | - | - | - | - | - | - | - |
+| pool.ntp.org | default | - | - | - | - | - | - | - | - |
+| time.google.com | default | True | - | - | - | - | - | - | - |
 
 #### NTP Device Configuration
 
 ```eos
 !
-ntp local-interface vrf MGMT Vlan10
-ntp server vrf MGMT pool.ntp.org
-ntp server vrf MGMT time.google.com prefer
+ntp local-interface Management1
+ntp server pool.ntp.org
+ntp server time.google.com prefer
 ```
 
 ### Management API HTTP
@@ -125,7 +124,7 @@ ntp server vrf MGMT time.google.com prefer
 
 | VRF Name | IPv4 ACL | IPv6 ACL |
 | -------- | -------- | -------- |
-| MGMT | - | - |
+| default | - | - |
 
 #### Management API HTTP Device Configuration
 
@@ -135,7 +134,7 @@ management api http-commands
    protocol https
    no shutdown
    !
-   vrf MGMT
+   vrf default
       no shutdown
 ```
 
@@ -185,14 +184,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | apiserver.arista.io:443 | MGMT | token-secure,/tmp/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | apiserver.arista.io:443 | default | token-secure,/tmp/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=apiserver.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=apiserver.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -265,11 +264,32 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 10 | Inband Management Network | - |
+| 11 | WLAN | - |
+| 12 | PC | - |
+| 13 | AP-MGMT | - |
+| 4093 | MLAG_L3 | MLAG |
 | 4094 | MLAG | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
+!
+vlan 10
+   name Inband Management Network
+!
+vlan 11
+   name WLAN
+!
+vlan 12
+   name PC
+!
+vlan 13
+   name AP-MGMT
+!
+vlan 4093
+   name MLAG_L3
+   trunk group MLAG
 !
 vlan 4094
    name MLAG
@@ -352,6 +372,7 @@ interface Loopback0
    description ROUTER_ID
    no shutdown
    ip address 172.16.0.2/32
+   ip ospf area 0.0.0.0
 ```
 
 ### VLAN Interfaces
@@ -360,17 +381,59 @@ interface Loopback0
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
+| Vlan10 | Inband Management Network | default | - | False |
+| Vlan11 | WLAN | default | - | False |
+| Vlan12 | PC | default | - | False |
+| Vlan13 | AP-MGMT | default | - | False |
+| Vlan4093 | MLAG_L3 | default | 9214 | False |
 | Vlan4094 | MLAG | default | 9214 | False |
 
 ##### IPv4
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
+| Vlan10 |  default  |  10.10.0.22/24  |  -  |  10.10.0.1  |  -  |  -  |
+| Vlan11 |  default  |  10.11.0.22/24  |  -  |  10.11.0.1  |  -  |  -  |
+| Vlan12 |  default  |  10.12.0.22/24  |  -  |  10.12.0.1  |  -  |  -  |
+| Vlan13 |  default  |  10.13.0.22/24  |  -  |  10.13.0.1  |  -  |  -  |
+| Vlan4093 |  default  |  172.61.1.1/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  169.254.0.1/31  |  -  |  -  |  -  |  -  |
 
 #### VLAN Interfaces Device Configuration
 
 ```eos
+!
+interface Vlan10
+   description Inband Management Network
+   no shutdown
+   ip address 10.10.0.22/24
+   ip virtual-router address 10.10.0.1
+!
+interface Vlan11
+   description WLAN
+   no shutdown
+   ip address 10.11.0.22/24
+   ip virtual-router address 10.11.0.1
+!
+interface Vlan12
+   description PC
+   no shutdown
+   ip address 10.12.0.22/24
+   ip virtual-router address 10.12.0.1
+!
+interface Vlan13
+   description AP-MGMT
+   no shutdown
+   ip address 10.13.0.22/24
+   ip virtual-router address 10.13.0.1
+!
+interface Vlan4093
+   description MLAG_L3
+   no shutdown
+   mtu 9214
+   ip address 172.61.1.1/31
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
 !
 interface Vlan4094
    description MLAG
@@ -411,14 +474,12 @@ ip virtual-router mac-address 00:1c:73:00:dc:01
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
-no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -428,21 +489,39 @@ no ip routing vrf MGMT
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| MGMT | false |
+| default | false |
 
-### Static Routes
+### Router OSPF
 
-#### Static Routes Summary
+#### Router OSPF Summary
 
-| VRF | Destination Prefix | Next Hop IP | Exit interface | Administrative Distance | Tag | Route Name | Metric |
-| --- | ------------------ | ----------- | -------------- | ----------------------- | --- | ---------- | ------ |
-| MGMT | 0.0.0.0/0 | 10.10.0.1 | - | 1 | - | - | - |
+| Process ID | Router ID | Default Passive Interface | No Passive Interface | BFD | Max LSA | Default Information Originate | Log Adjacency Changes Detail | Auto Cost Reference Bandwidth | Maximum Paths | MPLS LDP Sync Default | Distribute List In |
+| ---------- | --------- | ------------------------- | -------------------- | --- | ------- | ----------------------------- | ---------------------------- | ----------------------------- | ------------- | --------------------- | ------------------ |
+| 100 | 172.16.0.2 | enabled | Vlan4093 <br> | disabled | 12000 | disabled | disabled | - | - | - | - |
 
-#### Static Routes Device Configuration
+#### Router OSPF Router Redistribution
+
+| Process ID | Source Protocol | Include Leaked | Route Map |
+| ---------- | --------------- | -------------- | --------- |
+| 100 | connected | disabled | - |
+
+#### OSPF Interfaces
+
+| Interface | Area | Cost | Point To Point |
+| -------- | -------- | -------- | -------- |
+| Vlan4093 | 0.0.0.0 | - | True |
+| Loopback0 | 0.0.0.0 | - | - |
+
+#### Router OSPF Device Configuration
 
 ```eos
 !
-ip route vrf MGMT 0.0.0.0/0 10.10.0.1
+router ospf 100
+   router-id 172.16.0.2
+   passive-interface default
+   no passive-interface Vlan4093
+   redistribute connected
+   max-lsa 12000
 ```
 
 ## Multicast
@@ -466,11 +545,8 @@ ip route vrf MGMT 0.0.0.0/0 10.10.0.1
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
-!
-vrf instance MGMT
 ```

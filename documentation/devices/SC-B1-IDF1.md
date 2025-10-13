@@ -47,22 +47,21 @@
 
 | Management Interface | Description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Vlan10 | OOB_MANAGEMENT | oob | MGMT | 10.10.0.10/24 | 10.10.0.1 |
+| Management1 | OOB_MANAGEMENT | oob | default | 10.10.0.10/24 | - |
 
 ##### IPv6
 
 | Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
 | -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Vlan10 | OOB_MANAGEMENT | oob | MGMT | - | - |
+| Management1 | OOB_MANAGEMENT | oob | default | - | - |
 
 #### Management Interfaces Device Configuration
 
 ```eos
 !
-interface Vlan10
+interface Management1
    description OOB_MANAGEMENT
    no shutdown
-   vrf MGMT
    ip address 10.10.0.10/24
 ```
 
@@ -72,14 +71,14 @@ interface Vlan10
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 8.8.4.4 | MGMT | - |
-| 8.8.8.8 | MGMT | - |
+| 8.8.4.4 | default | - |
+| 8.8.8.8 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-ip name-server vrf MGMT 8.8.4.4
-ip name-server vrf MGMT 8.8.8.8
+ip name-server vrf default 8.8.4.4
+ip name-server vrf default 8.8.8.8
 ```
 
 ### NTP
@@ -90,22 +89,22 @@ ip name-server vrf MGMT 8.8.8.8
 
 | Interface | VRF |
 | --------- | --- |
-| Vlan10 | MGMT |
+| Management1 | default |
 
 ##### NTP Servers
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
 | ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
-| pool.ntp.org | MGMT | - | - | - | - | - | - | - | - |
-| time.google.com | MGMT | True | - | - | - | - | - | - | - |
+| pool.ntp.org | default | - | - | - | - | - | - | - | - |
+| time.google.com | default | True | - | - | - | - | - | - | - |
 
 #### NTP Device Configuration
 
 ```eos
 !
-ntp local-interface vrf MGMT Vlan10
-ntp server vrf MGMT pool.ntp.org
-ntp server vrf MGMT time.google.com prefer
+ntp local-interface Management1
+ntp server pool.ntp.org
+ntp server time.google.com prefer
 ```
 
 ### Management API HTTP
@@ -120,7 +119,7 @@ ntp server vrf MGMT time.google.com prefer
 
 | VRF Name | IPv4 ACL | IPv6 ACL |
 | -------- | -------- | -------- |
-| MGMT | - | - |
+| default | - | - |
 
 #### Management API HTTP Device Configuration
 
@@ -130,7 +129,7 @@ management api http-commands
    protocol https
    no shutdown
    !
-   vrf MGMT
+   vrf default
       no shutdown
 ```
 
@@ -180,14 +179,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | apiserver.arista.io:443 | MGMT | token-secure,/tmp/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | apiserver.arista.io:443 | default | token-secure,/tmp/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=apiserver.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=apiserver.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -300,7 +299,7 @@ interface Port-Channel1
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
-| Vlan10 |  default  |  10.10.10.6/24  |  -  |  -  |  -  |  -  |
+| Vlan10 |  default  |  10.10.0.6/24  |  -  |  -  |  -  |  -  |
 
 #### VLAN Interfaces Device Configuration
 
@@ -310,7 +309,7 @@ interface Vlan10
    description Inband Management
    no shutdown
    mtu 1500
-   ip address 10.10.10.6/24
+   ip address 10.10.0.6/24
 ```
 
 ## Routing
@@ -331,12 +330,10 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
-no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -346,7 +343,7 @@ no ip routing vrf MGMT
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| MGMT | false |
+| default | false |
 
 ### Static Routes
 
@@ -354,15 +351,13 @@ no ip routing vrf MGMT
 
 | VRF | Destination Prefix | Next Hop IP | Exit interface | Administrative Distance | Tag | Route Name | Metric |
 | --- | ------------------ | ----------- | -------------- | ----------------------- | --- | ---------- | ------ |
-| MGMT | 0.0.0.0/0 | 10.10.0.1 | - | 1 | - | - | - |
-| default | 0.0.0.0/0 | 10.10.10.1 | - | 1 | - | - | - |
+| default | 0.0.0.0/0 | 10.10.0.1 | - | 1 | - | - | - |
 
 #### Static Routes Device Configuration
 
 ```eos
 !
-ip route 0.0.0.0/0 10.10.10.1
-ip route vrf MGMT 0.0.0.0/0 10.10.0.1
+ip route 0.0.0.0/0 10.10.0.1
 ```
 
 ## Multicast
@@ -386,11 +381,8 @@ ip route vrf MGMT 0.0.0.0/0 10.10.0.1
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
-!
-vrf instance MGMT
 ```

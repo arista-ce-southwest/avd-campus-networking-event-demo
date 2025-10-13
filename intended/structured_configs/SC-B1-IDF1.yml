@@ -7,7 +7,7 @@ daemon_terminattr:
   cvauth:
     method: token-secure
     token_file: /tmp/cv-onboarding-token
-  cvvrf: MGMT
+  cvvrf: default
   disable_aaa: false
   ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
   smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
@@ -28,9 +28,9 @@ ip_igmp_snooping:
   globally_enabled: true
 ip_name_servers:
 - ip_address: 8.8.4.4
-  vrf: MGMT
+  vrf: default
 - ip_address: 8.8.8.8
-  vrf: MGMT
+  vrf: default
 is_deployed: true
 local_users:
 - name: admin
@@ -40,28 +40,27 @@ local_users:
 management_api_http:
   enable_https: true
   enable_vrfs:
-  - name: MGMT
+  - name: default
 management_interfaces:
-- name: Vlan10
+- name: Management1
   description: OOB_MANAGEMENT
   shutdown: false
-  vrf: MGMT
+  vrf: default
   ip_address: 10.10.0.10/24
   type: oob
-  gateway: 10.10.0.1
 metadata:
   platform: default
   fabric_name: CAMPUS
 ntp:
   local_interface:
-    name: Vlan10
-    vrf: MGMT
+    name: Management1
+    vrf: default
   servers:
   - name: time.google.com
     preferred: true
-    vrf: MGMT
+    vrf: default
   - name: pool.ntp.org
-    vrf: MGMT
+    vrf: default
 port_channel_interfaces:
 - name: Port-Channel1
   description: L2_SPINES_Port-Channel4
@@ -78,17 +77,14 @@ spanning_tree:
   - id: '0'
     priority: 16384
 static_routes:
-- vrf: MGMT
-  prefix: 0.0.0.0/0
-  next_hop: 10.10.0.1
 - prefix: 0.0.0.0/0
-  next_hop: 10.10.10.1
+  next_hop: 10.10.0.1
 transceiver_qsfp_default_mode_4x10: true
 vlan_interfaces:
 - name: Vlan10
   description: Inband Management
   shutdown: false
-  ip_address: 10.10.10.6/24
+  ip_address: 10.10.0.6/24
   mtu: 1500
   type: inband_mgmt
 vlan_internal_order:
@@ -101,5 +97,5 @@ vlans:
   name: INBAND_MGMT
   tenant: system
 vrfs:
-- name: MGMT
+- name: default
   ip_routing: false

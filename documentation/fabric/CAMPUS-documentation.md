@@ -27,9 +27,7 @@
 
 | POD | Type | Node | Management IP | Inband Interface |
 | --- | ---- | ---- | ------------- | ---------------- |
-| CAMPUS | l3spine | SC-B1-Core1 | 10.10.10.4/24 | None |
-| CAMPUS | l3spine | SC-B1-Core2 | 10.10.10.5/24 | None |
-| CAMPUS | l2leaf | SC-B1-IDF1 | 10.10.10.6/24 | Vlan10 |
+| CAMPUS | l2leaf | SC-B1-IDF1 | 10.10.0.6/24 | Vlan10 |
 
 ## Fabric Topology
 
