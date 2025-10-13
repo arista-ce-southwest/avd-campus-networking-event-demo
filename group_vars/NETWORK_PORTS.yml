@@ -1,0 +1,31 @@
+---
+### group_vars/NETWORK_PORTS.yml
+### This construct contains the port profiles and other port data structures need to render port 
+### specific configuration and apply to individual or range of interfaces.
+
+port_profiles:
+  - profile: PC-PROFILE
+    mode: "access"
+    spanning_tree_portfast: edge
+    spanning_tree_bpduguard: enabled
+    native_vlan: 1
+    vlans: 12
+  - profile: AP-PROFILE
+    mode: "trunk"
+    native_vlan: 10
+    vlans: 10,11
+
+# ---------------- IDF1 ----------------
+network_ports:
+  - switches:
+      - SC-B\d+-IDF(\d+) # regex match LEAF1A & LEAF1B
+    switch_ports:
+      - Ethernet10-16
+    description: PC
+    profile: PC-PROFILE
+  - switches:
+      - SC-B\d+-IDF(\d+) # regex match LEAF1A & LEAF1B
+    switch_ports:
+      - Ethernet3-9
+    description: AP
+    profile: AP-PROFILE
