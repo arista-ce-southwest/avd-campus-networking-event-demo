@@ -34,7 +34,7 @@ tenants:
             nodes: [ SC-B1-Core2 ]
         svis:
           - id: 10
-            name: 'Inband Management Network'
+            name: 'Inband_Management_Network'
             tags: ["10"]
             enabled: true
             ip_virtual_router_addresses:

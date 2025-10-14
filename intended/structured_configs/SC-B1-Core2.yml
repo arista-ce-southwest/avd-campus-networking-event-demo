@@ -177,7 +177,7 @@ vlan_interfaces:
   mtu: 9214
   no_autostate: true
 - name: Vlan10
-  description: Inband Management Network
+  description: Inband_Management_Network
   shutdown: false
   ip_address: 10.10.0.22/24
   ip_virtual_router_addresses:
@@ -226,7 +226,7 @@ vlans:
   - MLAG
   tenant: system
 - id: 10
-  name: Inband Management Network
+  name: Inband_Management_Network
   tenant: CAMPUS
 - id: 11
   name: WLAN

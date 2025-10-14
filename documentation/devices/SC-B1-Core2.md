@@ -266,7 +266,7 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | Inband Management Network | - |
+| 10 | Inband_Management_Network | - |
 | 11 | WLAN | - |
 | 12 | PC | - |
 | 4093 | MLAG_L3 | MLAG |
@@ -277,7 +277,7 @@ vlan internal order ascending range 1006 1199
 ```eos
 !
 vlan 10
-   name Inband Management Network
+   name Inband_Management_Network
 !
 vlan 11
    name WLAN
@@ -390,7 +390,7 @@ interface Loopback0
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
-| Vlan10 | Inband Management Network | default | - | False |
+| Vlan10 | Inband_Management_Network | default | - | False |
 | Vlan11 | WLAN | default | - | False |
 | Vlan12 | PC | default | - | False |
 | Vlan4093 | MLAG_L3 | default | 9214 | False |
@@ -411,7 +411,7 @@ interface Loopback0
 ```eos
 !
 interface Vlan10
-   description Inband Management Network
+   description Inband_Management_Network
    no shutdown
    ip address 10.10.0.22/24
    ip helper-address 10.10.0.6
