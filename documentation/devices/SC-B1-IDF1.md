@@ -11,6 +11,9 @@
   - [Local Users](#local-users)
   - [Enable Password](#enable-password)
   - [AAA Authorization](#aaa-authorization)
+- [DHCP Server](#dhcp-server)
+  - [DHCP Servers Summary](#dhcp-servers-summary)
+  - [DHCP Server Configuration](#dhcp-server-configuration)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
 - [Spanning Tree](#spanning-tree)
@@ -169,6 +172,52 @@ Authorization for configuration commands is disabled.
 ```eos
 aaa authorization exec default local
 !
+```
+
+## DHCP Server
+
+### DHCP Servers Summary
+
+| DHCP Server Enabled | VRF | IPv4 DNS Domain | IPv4 DNS Servers | IPv4 Bootfile | IPv4 Lease Time | IPv6 DNS Domain | IPv6 DNS Servers | IPv6 Bootfile | IPv6 Lease Time |
+| ------------------- | --- | --------------- | ---------------- | ------------- | --------------- | --------------- | ---------------- | ------------- | --------------- |
+| True | default | - | - | - | - | - | - | - | - |
+
+#### VRF default DHCP Server
+
+##### Subnets
+
+| Subnet | Name | DNS Servers | Default Gateway | Lease Time | Ranges |
+| ------ | ---- | ----------- | --------------- | ---------- | ------ |
+| 10.10.0.0/24 | Management | 8.8.8.8 | 10.10.0.1 | - | 10.10.0.5-10.10.0.20 |
+| 10.11.0.0/24 | WLAN | 8.8.8.8 | 10.11.0.1 | - | 10.11.0.5-10.11.0.20 |
+| 10.12.0.0/24 | PC | 8.8.8.8 | 10.12.0.1 | - | 10.12.0.5-10.12.0.20 |
+
+### DHCP Server Configuration
+
+```eos
+!
+dhcp server
+   !
+   subnet 10.10.0.0/24
+      !
+      range 10.10.0.5 10.10.0.20
+      name Management
+      dns server 8.8.8.8
+      default-gateway 10.10.0.1
+   !
+   subnet 10.11.0.0/24
+      !
+      range 10.11.0.5 10.11.0.20
+      name WLAN
+      dns server 8.8.8.8
+      default-gateway 10.11.0.1
+   !
+   subnet 10.12.0.0/24
+      !
+      range 10.12.0.5 10.12.0.20
+      name PC
+      dns server 8.8.8.8
+      default-gateway 10.12.0.1
 ```
 
 ## Monitoring
