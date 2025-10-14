@@ -25,18 +25,17 @@ sequenceDiagram
     Device-->>CVaaS: Acknowledge deployment
     CVaaS-->>AVD: Deployment status
   end
-  
 ```
 
 ## Required Software Versions
 
 Ensure your environment meets the following requirements:
 
-* Python 3.12 or Newer
-* Ansible: 2.14+
-* Arista AVD Collection: 5.4+
-* Virtual Environment: venv for Python dependency isolation
-* CVaaS: Active subscription for device orchestration
+* Python 3.12 or newer
+* Ansible 2.14+
+* Arista AVD Collection 5.4+
+* Python Virtual Environment (venv) for dependency isolation
+* Active CVaaS subscription for device orchestration
 
 ## Clone Git Respository
 
@@ -68,14 +67,14 @@ ansible --version
 
 AVD uses an Ansible inventory to define devices, VRFs, VLANs, and SVIs for the demo network.
 
-1. Validate the inventory:
+1. Validate the inventory structure:
 
 ```bash
 ansible-inventory -i inventory.yml --graph
 ansible-inventory -i inventory.yml --list
 ```
 
-2. Create service account in Arista CloudVision
+2. Create a service account in CloudVision (CVaaS):
 
 [Steps to create service accounts on CloudVision - AVD==5.4](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision)
 
@@ -83,25 +82,25 @@ ansible-inventory -i inventory.yml --list
 
 AVD renders configuration in structured format before deployment:
 
-1. Run the "build" Ansible playbook
+1. Run the build playbook:
 
 ```bash
-ansible-play -i inventory build.yml
+ansible-playbook -i inventory.yml build.yml
 ```
 
-2. Run the "deploy-studio" Ansible playbook to push the rendered configuration into CloudVision Studios
+2. Deploy rendered configurations to CVaaS Studios:
 
 ```bash
-ansible-play -i inventory deploy-studio.yml
+ansible-playbook -i inventory.yml deploy-studio.yml
 ```
 
 ## Topology Overview
 
 The demo topology includes:
 
-* L2 Leaf: SC-B1-IDF1 (handles inband management VLAN 10, DHCP server endpoint)
-* L3 Spine/Core: SC-B1-Core1 / SC-B1-Core2 (DHCP relay, BGP peering, SVI VRF routing)
-* Access Devices: APs, PCs, connected via defined VLANs (10, 11, 12)
+* L2 Leaf: SC-B1-IDF1 (inband management VLAN 10, DHCP server endpoint)
+* L3 Spine/Core: SC-B1-Core1 / SC-B1-Core2 (DHCP relay, BGP peering, SVI routing)
+* Access Devices: APs and PCs connected via VLANs 10, 11, and 12
 
 ```mermaid
 graph TD
@@ -148,11 +147,10 @@ graph TD
 
 **Key Highlights:**
 
-* AVD is shown at the top as the automation source generating configurations.
-* CVaaS acts as the control and deployment hub for configuration delivery to devices.
-* Core switches handle L3 services and DHCP relay, while SC-B1-IDF1 acts as the DHCP server endpoint for VLAN 10.
-* Access Devices (APs and PCs) connect through VLANs.
-
+* AVD serves as the automation source for configuration generation.
+* CVaaS is the central deployment and orchestration platform.
+* Core switches provide L3 services and DHCP relay.
+* Access devices (APs and PCs) connect through VLANs defined in the demo fabric
 
 ## References
 
