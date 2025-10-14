@@ -202,6 +202,8 @@ vlan_interfaces:
   ip_address: 10.10.0.2/24
   ip_virtual_router_addresses:
   - 10.10.0.1
+  ip_helpers:
+  - ip_helper: 10.10.0.6
   mtu: 1500
   ip_attached_host_route_export:
     enabled: true
@@ -215,6 +217,8 @@ vlan_interfaces:
   ip_address: 10.11.0.21/24
   ip_virtual_router_addresses:
   - 10.11.0.1
+  ip_helpers:
+  - ip_helper: 10.10.0.6
   tenant: CAMPUS
   tags:
   - '11'
@@ -224,6 +228,8 @@ vlan_interfaces:
   ip_address: 10.12.0.21/24
   ip_virtual_router_addresses:
   - 10.12.0.1
+  ip_helpers:
+  - ip_helper: 10.10.0.6
   tenant: CAMPUS
   tags:
   - '12'

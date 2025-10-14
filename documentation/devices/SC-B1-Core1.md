@@ -430,6 +430,7 @@ interface Vlan10
    no shutdown
    mtu 1500
    ip address 10.10.0.2/24
+   ip helper-address 10.10.0.6
    ip attached-host route export 19
    ip virtual-router address 10.10.0.1
 !
@@ -437,12 +438,14 @@ interface Vlan11
    description WLAN
    no shutdown
    ip address 10.11.0.21/24
+   ip helper-address 10.10.0.6
    ip virtual-router address 10.11.0.1
 !
 interface Vlan12
    description PC
    no shutdown
    ip address 10.12.0.21/24
+   ip helper-address 10.10.0.6
    ip virtual-router address 10.12.0.1
 !
 interface Vlan4093
