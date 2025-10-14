@@ -31,8 +31,8 @@ dhcp_servers:
           - start: 10.12.0.5
             end: 10.12.0.20
 
-vlan_interfaces:
-  Vlan10:
+custom_structured_configuration_vlan_interfaces:
+  - name: Vlan10
     vrf: default
-    ip_address: 10.10.0.1/24   # <-- must match default_gateway above
+    ip_address: 10.10.0.6/24
     dhcp_server_ipv4: true

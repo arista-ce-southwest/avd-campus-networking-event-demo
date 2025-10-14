@@ -14,6 +14,7 @@
 - [DHCP Server](#dhcp-server)
   - [DHCP Servers Summary](#dhcp-servers-summary)
   - [DHCP Server Configuration](#dhcp-server-configuration)
+  - [DHCP Server Interfaces](#dhcp-server-interfaces)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
 - [Spanning Tree](#spanning-tree)
@@ -219,6 +220,12 @@ dhcp server
       dns server 8.8.8.8
       default-gateway 10.12.0.1
 ```
+
+### DHCP Server Interfaces
+
+| Interface name | DHCP IPv4 | DHCP IPv6 |
+| -------------- | --------- | --------- |
+| Vlan10 | True | - |
 
 ## Monitoring
 
@@ -499,7 +506,9 @@ interface Vlan10
    description Inband Management
    no shutdown
    mtu 1500
+   vrf default
    ip address 10.10.0.6/24
+   dhcp server ipv4
 ```
 
 ## Routing
