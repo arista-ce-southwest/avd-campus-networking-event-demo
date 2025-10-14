@@ -159,12 +159,12 @@ vlan_interfaces:
   description: MLAG_L3
   shutdown: false
   ip_address: 172.61.1.1/31
-  mtu: 9214
+  mtu: null
 - name: Vlan4094
   description: MLAG
   shutdown: false
   ip_address: 169.254.0.1/31
-  mtu: 9214
+  mtu: null
   no_autostate: true
 - name: Vlan10
   description: Inband_Management_Network

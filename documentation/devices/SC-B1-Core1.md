@@ -374,8 +374,8 @@ interface Loopback0
 | Vlan10 | Inband_Management_Network | default | - | False |
 | Vlan11 | WLAN | default | - | False |
 | Vlan12 | PC | default | - | False |
-| Vlan4093 | MLAG_L3 | default | 9214 | False |
-| Vlan4094 | MLAG | default | 9214 | False |
+| Vlan4093 | MLAG_L3 | default | - | False |
+| Vlan4094 | MLAG | default | - | False |
 
 ##### IPv4
 
@@ -415,13 +415,11 @@ interface Vlan12
 interface Vlan4093
    description MLAG_L3
    no shutdown
-   mtu 9214
    ip address 172.61.1.0/31
 !
 interface Vlan4094
    description MLAG
    no shutdown
-   mtu 9214
    no autostate
    ip address 169.254.0.0/31
 ```

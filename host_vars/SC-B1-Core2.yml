@@ -1,0 +1,5 @@
+custom_structured_configuration_vlan_interfaces:
+  - name: Vlan4093
+    mtu: null
+  - name: Vlan4094
+    mtu: null
