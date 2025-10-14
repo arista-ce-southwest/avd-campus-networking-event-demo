@@ -64,15 +64,8 @@ management_api_http:
   enable_https: true
   enable_vrfs:
   - name: default
-management_interfaces:
-- name: Management1
-  description: OOB_MANAGEMENT
-  shutdown: false
-  vrf: default
-  ip_address: 10.10.0.22/24
-  type: oob
 metadata:
-  platform: default
+  platform: 710P
   fabric_name: CAMPUS
 mlag_configuration:
   domain_id: SPINES
@@ -82,9 +75,6 @@ mlag_configuration:
   reload_delay_mlag: '300'
   reload_delay_non_mlag: '330'
 ntp:
-  local_interface:
-    name: Management1
-    vrf: default
   servers:
   - name: time.google.com
     preferred: true

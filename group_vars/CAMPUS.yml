@@ -26,7 +26,7 @@ name_servers:
 
 # NTP Servers IP or DNS name, first NTP server will be preferred, and sourced from Management VRF
 ntp_settings:
-  server_vrf: use_mgmt_interface_vrf
+  server_vrf: default
   servers:
     - name: time.google.com
     - name: pool.ntp.org

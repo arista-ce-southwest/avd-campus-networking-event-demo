@@ -73,15 +73,8 @@ management_api_http:
   enable_https: true
   enable_vrfs:
   - name: default
-management_interfaces:
-- name: Management1
-  description: OOB_MANAGEMENT
-  shutdown: false
-  vrf: default
-  ip_address: 10.10.0.21/24
-  type: oob
 metadata:
-  platform: default
+  platform: 710P
   fabric_name: CAMPUS
 mlag_configuration:
   domain_id: SPINES
@@ -91,9 +84,6 @@ mlag_configuration:
   reload_delay_mlag: '300'
   reload_delay_non_mlag: '330'
 ntp:
-  local_interface:
-    name: Management1
-    vrf: default
   servers:
   - name: time.google.com
     preferred: true
@@ -163,8 +153,6 @@ router_bgp:
   - ip_address: 10.0.1.1
     peer_group: FIREWALL
   redistribute:
-    attached_host:
-      enabled: true
     connected:
       enabled: true
   address_family_ipv4:
@@ -197,17 +185,13 @@ vlan_interfaces:
   mtu: 9214
   no_autostate: true
 - name: Vlan10
-  description: Inband Management
+  description: Inband_Management_Network
   shutdown: false
-  ip_address: 10.10.0.2/24
+  ip_address: 10.10.0.21/24
   ip_virtual_router_addresses:
   - 10.10.0.1
   ip_helpers:
   - ip_helper: 10.10.0.6
-  mtu: 1500
-  ip_attached_host_route_export:
-    enabled: true
-    distance: 19
   tenant: CAMPUS
   tags:
   - '10'
@@ -250,8 +234,8 @@ vlans:
   - MLAG
   tenant: system
 - id: 10
-  name: INBAND_MGMT
-  tenant: system
+  name: Inband_Management_Network
+  tenant: CAMPUS
 - id: 11
   name: WLAN
   tenant: CAMPUS

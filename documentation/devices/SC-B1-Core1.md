@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Management](#management)
-  - [Management Interfaces](#management-interfaces)
   - [IP Name Servers](#ip-name-servers)
   - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
@@ -46,32 +45,6 @@
 
 ## Management
 
-### Management Interfaces
-
-#### Management Interfaces Summary
-
-##### IPv4
-
-| Management Interface | Description | Type | VRF | IP Address | Gateway |
-| -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | OOB_MANAGEMENT | oob | default | 10.10.0.21/24 | - |
-
-##### IPv6
-
-| Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
-| -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Management1 | OOB_MANAGEMENT | oob | default | - | - |
-
-#### Management Interfaces Device Configuration
-
-```eos
-!
-interface Management1
-   description OOB_MANAGEMENT
-   no shutdown
-   ip address 10.10.0.21/24
-```
-
 ### IP Name Servers
 
 #### IP Name Servers Summary
@@ -92,12 +65,6 @@ ip name-server vrf default 8.8.8.8
 
 #### NTP Summary
 
-##### NTP Local Interface
-
-| Interface | VRF |
-| --------- | --- |
-| Management1 | default |
-
 ##### NTP Servers
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
@@ -109,7 +76,6 @@ ip name-server vrf default 8.8.8.8
 
 ```eos
 !
-ntp local-interface Management1
 ntp server pool.ntp.org
 ntp server time.google.com prefer
 ```
@@ -266,7 +232,7 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | INBAND_MGMT | - |
+| 10 | Inband_Management_Network | - |
 | 11 | WLAN | - |
 | 12 | PC | - |
 | 4093 | MLAG_L3 | MLAG |
@@ -277,7 +243,7 @@ vlan internal order ascending range 1006 1199
 ```eos
 !
 vlan 10
-   name INBAND_MGMT
+   name Inband_Management_Network
 !
 vlan 11
    name WLAN
@@ -405,7 +371,7 @@ interface Loopback0
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
-| Vlan10 | Inband Management | default | 1500 | False |
+| Vlan10 | Inband_Management_Network | default | - | False |
 | Vlan11 | WLAN | default | - | False |
 | Vlan12 | PC | default | - | False |
 | Vlan4093 | MLAG_L3 | default | 9214 | False |
@@ -415,7 +381,7 @@ interface Loopback0
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
-| Vlan10 |  default  |  10.10.0.2/24  |  -  |  10.10.0.1  |  -  |  -  |
+| Vlan10 |  default  |  10.10.0.21/24  |  -  |  10.10.0.1  |  -  |  -  |
 | Vlan11 |  default  |  10.11.0.21/24  |  -  |  10.11.0.1  |  -  |  -  |
 | Vlan12 |  default  |  10.12.0.21/24  |  -  |  10.12.0.1  |  -  |  -  |
 | Vlan4093 |  default  |  172.61.1.0/31  |  -  |  -  |  -  |  -  |
@@ -426,12 +392,10 @@ interface Loopback0
 ```eos
 !
 interface Vlan10
-   description Inband Management
+   description Inband_Management_Network
    no shutdown
-   mtu 1500
-   ip address 10.10.0.2/24
+   ip address 10.10.0.21/24
    ip helper-address 10.10.0.6
-   ip attached-host route export 19
    ip virtual-router address 10.10.0.1
 !
 interface Vlan11
@@ -588,7 +552,6 @@ router bgp 65200
    neighbor 172.61.1.1 peer group MLAG-IPv4-UNDERLAY-PEER
    neighbor 172.61.1.1 description SC-B1-Core2_Vlan4093
    redistribute connected
-   redistribute attached-host
    !
    address-family ipv4
       neighbor IPv4-UNDERLAY-PEERS activate

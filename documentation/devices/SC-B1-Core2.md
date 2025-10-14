@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Management](#management)
-  - [Management Interfaces](#management-interfaces)
   - [IP Name Servers](#ip-name-servers)
   - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
@@ -46,32 +45,6 @@
 
 ## Management
 
-### Management Interfaces
-
-#### Management Interfaces Summary
-
-##### IPv4
-
-| Management Interface | Description | Type | VRF | IP Address | Gateway |
-| -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | OOB_MANAGEMENT | oob | default | 10.10.0.22/24 | - |
-
-##### IPv6
-
-| Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
-| -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Management1 | OOB_MANAGEMENT | oob | default | - | - |
-
-#### Management Interfaces Device Configuration
-
-```eos
-!
-interface Management1
-   description OOB_MANAGEMENT
-   no shutdown
-   ip address 10.10.0.22/24
-```
-
 ### IP Name Servers
 
 #### IP Name Servers Summary
@@ -92,12 +65,6 @@ ip name-server vrf default 8.8.8.8
 
 #### NTP Summary
 
-##### NTP Local Interface
-
-| Interface | VRF |
-| --------- | --- |
-| Management1 | default |
-
 ##### NTP Servers
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
@@ -109,7 +76,6 @@ ip name-server vrf default 8.8.8.8
 
 ```eos
 !
-ntp local-interface Management1
 ntp server pool.ntp.org
 ntp server time.google.com prefer
 ```

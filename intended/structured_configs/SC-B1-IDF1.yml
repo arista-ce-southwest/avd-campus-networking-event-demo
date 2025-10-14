@@ -195,20 +195,10 @@ management_api_http:
   enable_https: true
   enable_vrfs:
   - name: default
-management_interfaces:
-- name: Management1
-  description: OOB_MANAGEMENT
-  shutdown: false
-  vrf: default
-  ip_address: 10.10.0.10/24
-  type: oob
 metadata:
-  platform: default
+  platform: 710P
   fabric_name: CAMPUS
 ntp:
-  local_interface:
-    name: Management1
-    vrf: default
   servers:
   - name: time.google.com
     preferred: true
@@ -230,9 +220,6 @@ spanning_tree:
   mst_instances:
   - id: '0'
     priority: 16384
-static_routes:
-- prefix: 0.0.0.0/0
-  next_hop: 10.10.0.1
 transceiver_qsfp_default_mode_4x10: true
 vlan_interfaces:
 - name: Vlan10

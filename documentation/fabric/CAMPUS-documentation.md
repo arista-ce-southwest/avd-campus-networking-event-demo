@@ -17,9 +17,9 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| CAMPUS | l3spine | SC-B1-Core1 | 10.10.0.21/24 | default | Provisioned | - |
-| CAMPUS | l3spine | SC-B1-Core2 | 10.10.0.22/24 | default | Provisioned | - |
-| CAMPUS | l2leaf | SC-B1-IDF1 | 10.10.0.10/24 | default | Provisioned | - |
+| CAMPUS | l3spine | SC-B1-Core1 | - | 710P | Provisioned | - |
+| CAMPUS | l3spine | SC-B1-Core2 | - | 710P | Provisioned | - |
+| CAMPUS | l2leaf | SC-B1-IDF1 | - | 710P | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
@@ -27,7 +27,9 @@
 
 | POD | Type | Node | Management IP | Inband Interface |
 | --- | ---- | ---- | ------------- | ---------------- |
-| CAMPUS | l2leaf | SC-B1-IDF1 | 10.10.0.6/24 | Vlan10 |
+| CAMPUS | l3spine | SC-B1-Core1 | 10.10.0.21/24 | None |
+| CAMPUS | l3spine | SC-B1-Core2 | 10.10.0.22/24 | None |
+| CAMPUS | l2leaf | SC-B1-IDF1 | 10.10.0.10/24 | Vlan10 |
 
 ## Fabric Topology
 

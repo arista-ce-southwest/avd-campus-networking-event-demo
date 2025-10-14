@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Management](#management)
-  - [Management Interfaces](#management-interfaces)
   - [IP Name Servers](#ip-name-servers)
   - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
@@ -34,7 +33,6 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Static Routes](#static-routes)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [VRF Instances](#vrf-instances)
@@ -42,32 +40,6 @@
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
 
 ## Management
-
-### Management Interfaces
-
-#### Management Interfaces Summary
-
-##### IPv4
-
-| Management Interface | Description | Type | VRF | IP Address | Gateway |
-| -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | OOB_MANAGEMENT | oob | default | 10.10.0.10/24 | - |
-
-##### IPv6
-
-| Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
-| -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Management1 | OOB_MANAGEMENT | oob | default | - | - |
-
-#### Management Interfaces Device Configuration
-
-```eos
-!
-interface Management1
-   description OOB_MANAGEMENT
-   no shutdown
-   ip address 10.10.0.10/24
-```
 
 ### IP Name Servers
 
@@ -89,12 +61,6 @@ ip name-server vrf default 8.8.8.8
 
 #### NTP Summary
 
-##### NTP Local Interface
-
-| Interface | VRF |
-| --------- | --- |
-| Management1 | default |
-
 ##### NTP Servers
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
@@ -106,7 +72,6 @@ ip name-server vrf default 8.8.8.8
 
 ```eos
 !
-ntp local-interface Management1
 ntp server pool.ntp.org
 ntp server time.google.com prefer
 ```
@@ -543,21 +508,6 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
-
-### Static Routes
-
-#### Static Routes Summary
-
-| VRF | Destination Prefix | Next Hop IP | Exit interface | Administrative Distance | Tag | Route Name | Metric |
-| --- | ------------------ | ----------- | -------------- | ----------------------- | --- | ---------- | ------ |
-| default | 0.0.0.0/0 | 10.10.0.1 | - | 1 | - | - | - |
-
-#### Static Routes Device Configuration
-
-```eos
-!
-ip route 0.0.0.0/0 10.10.0.1
-```
 
 ## Multicast
 
