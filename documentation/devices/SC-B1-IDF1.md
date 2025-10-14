@@ -455,13 +455,13 @@ interface Port-Channel1
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
-| Vlan10 | Inband Management | default | 1500 | False |
+| Vlan10 | Inband Management | default | - | False |
 
 ##### IPv4
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
-| Vlan10 |  default  |  10.10.0.6/24  |  -  |  -  |  -  |  -  |
+| Vlan10 |  default  |  10.10.0.10/24  |  -  |  -  |  -  |  -  |
 
 #### VLAN Interfaces Device Configuration
 
@@ -470,9 +470,7 @@ interface Port-Channel1
 interface Vlan10
    description Inband Management
    no shutdown
-   mtu 1500
-   vrf default
-   ip address 10.10.0.6/24
+   ip address 10.10.0.10/24
    dhcp server ipv4
 ```
 

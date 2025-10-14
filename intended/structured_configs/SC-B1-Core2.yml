@@ -173,7 +173,7 @@ vlan_interfaces:
   ip_virtual_router_addresses:
   - 10.10.0.1
   ip_helpers:
-  - ip_helper: 10.10.0.6
+  - ip_helper: 10.10.0.10
   tenant: CAMPUS
   tags:
   - '10'
@@ -195,7 +195,7 @@ vlan_interfaces:
   ip_virtual_router_addresses:
   - 10.12.0.1
   ip_helpers:
-  - ip_helper: 10.10.0.6
+  - ip_helper: 10.10.0.10
   tenant: CAMPUS
   tags:
   - '12'

@@ -395,7 +395,7 @@ interface Vlan10
    description Inband_Management_Network
    no shutdown
    ip address 10.10.0.21/24
-   ip helper-address 10.10.0.6
+   ip helper-address 10.10.0.10
    ip virtual-router address 10.10.0.1
 !
 interface Vlan11
@@ -409,7 +409,7 @@ interface Vlan12
    description PC
    no shutdown
    ip address 10.12.0.21/24
-   ip helper-address 10.10.0.6
+   ip helper-address 10.10.0.10
    ip virtual-router address 10.12.0.1
 !
 interface Vlan4093

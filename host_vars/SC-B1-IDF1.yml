@@ -33,6 +33,6 @@ dhcp_servers:
 
 custom_structured_configuration_vlan_interfaces:
   - name: Vlan10
-    vrf: default
-    ip_address: 10.10.0.6/24
+    ip_address: 10.10.0.10/24
+    mtu: null
     dhcp_server_ipv4: true

@@ -225,10 +225,9 @@ vlan_interfaces:
 - name: Vlan10
   description: Inband Management
   shutdown: false
-  vrf: default
-  ip_address: 10.10.0.6/24
+  ip_address: 10.10.0.10/24
   dhcp_server_ipv4: true
-  mtu: 1500
+  mtu: null
   type: inband_mgmt
 vlan_internal_order:
   allocation: ascending
