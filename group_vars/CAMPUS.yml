@@ -1,6 +1,5 @@
 ---
 ### Campus Fabric Data Structure
-
 fabric_name: CAMPUS
 
 # OOB Management network default gateway.
@@ -33,6 +32,8 @@ ntp_settings:
     - name: pool.ntp.org
 
 # CloudVision Portal definitions
+# Set Inventory for CloudVision host.
+cv_inventory_hostname: "cvaas"
 cvp_instance_ips:
   - apiserver.arista.io
 terminattr_smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
