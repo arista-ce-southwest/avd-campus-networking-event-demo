@@ -45,7 +45,5 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.inlinehilite
 
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/arista-ce-southwest
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js

@@ -46,7 +46,6 @@ graph TD
         Core1 -->|DHCP Relay| Leaf
         Core2 -->|DHCP Relay| Leaf
     end
-
 ```
 
 **Key Highlights:**
