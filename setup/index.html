@@ -333,15 +333,17 @@ ansible<span class="w"> </span>--version
 <h2 id="inventory-validation-and-service-account-creation-in-cvp">Inventory Validation and Service Account Creation in CVP<a class="headerlink" href="#inventory-validation-and-service-account-creation-in-cvp" title="Permanent link">¶</a></h2>
 <p>AVD uses an Ansible inventory to define devices, VRFs, VLANs, and SVIs for the demo network.</p>
 <ol>
-<li>Validate the inventory structure:</li>
-</ol>
+<li>
+<p>Validate the inventory structure:</p>
 <div class="highlight"><pre><span></span><code>ansible-inventory<span class="w"> </span>-i<span class="w"> </span>inventory.yml<span class="w"> </span>--graph
 ansible-inventory<span class="w"> </span>-i<span class="w"> </span>inventory.yml<span class="w"> </span>--list
 </code></pre></div>
-<ol>
-<li>Create a service account in CloudVision (CVaaS):</li>
-</ol>
+</li>
+<li>
+<p>Create a service account in CloudVision (CVaaS):</p>
 <p><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision">Steps to create service accounts on CloudVision - AVD==5.4</a></p>
+</li>
+</ol>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
