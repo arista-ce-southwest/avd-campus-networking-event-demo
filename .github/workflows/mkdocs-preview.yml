@@ -3,8 +3,8 @@ name: Deploy MkDocs Site
 on:
   push:
     branches:
-      - gh-pages-preview   # testing branch
-      # - main         # uncomment when ready for public site
+      # - gh-pages-preview   # testing branch
+      - main         # uncomment when ready for public site
 
 permissions:
   contents: write
