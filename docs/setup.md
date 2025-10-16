@@ -45,6 +45,6 @@ ansible-inventory -i inventory.yml --graph
 ansible-inventory -i inventory.yml --list
 ```
 
-2. Create a service account in CloudVision (CVaaS):
+1. Create a service account in CloudVision (CVaaS):
 
 [Steps to create service accounts on CloudVision - AVD==5.4](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision)
