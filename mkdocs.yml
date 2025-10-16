@@ -28,8 +28,8 @@ nav:
   - Home: index.md
   - Topology Overview: topology.md
   - Automation Workflow: workflow.md
-  - Software Requirements: requirements.md
-  - About: about.md
+  - AVD Environment Setup: setup.md
+  - References: references.md
 
 markdown_extensions:
   - admonition
