@@ -1,0 +1,36 @@
+name: Deploy MkDocs Site
+
+on:
+  push:
+    branches:
+      - docs-preview   # use this for testing first
+      # - main         # uncomment later when ready for public site
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs Material
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build site
+        run: mkdocs build --clean --site-dir site
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
