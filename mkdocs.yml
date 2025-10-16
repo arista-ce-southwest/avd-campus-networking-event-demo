@@ -1,0 +1,64 @@
+site_name: Arista Campus Networking Demo
+site_description: Arista Validated Design (AVD) Campus Deployment & Operations Demo
+site_author: Arista CE Southwest
+site_url: https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+  icon:
+    logo: material/network
+    repo: fontawesome/brands/github
+
+repo_url: https://github.com/arista-ce-southwest/avd-campus-networking-event-demo
+repo_name: arista-ce-southwest/avd-campus-networking-event-demo
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Topology Overview: topology.md
+  - Automation Workflow: workflow.md
+  - AVD Environment Setup: setup.md
+  - References: references.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.tasklist
+  - pymdownx.emoji
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
+  - js/mermaid-init.js
+
+plugins:
+  - search
+  - mermaid2
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/arista-ce-southwest/avd-campus-networking-event-demo
+  mermaid: true
