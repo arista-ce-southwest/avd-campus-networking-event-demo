@@ -3,8 +3,8 @@ name: Deploy MkDocs Site
 on:
   push:
     branches:
-      - docs-preview   # use this for testing first
-      # - main         # uncomment later when ready for public site
+      - docs-preview   # testing
+      # - main         # public site
 
 permissions:
   contents: write
@@ -21,13 +21,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install MkDocs Material
+      - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install -r git-pages-req.txt
 
       - name: Build site
-        run: mkdocs build --clean --site-dir site
+        run: mkdocs build --clean --site-dir site --strict
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
