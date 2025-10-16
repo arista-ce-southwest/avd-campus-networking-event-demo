@@ -40,11 +40,11 @@ AVD uses an Ansible inventory to define devices, VRFs, VLANs, and SVIs for the d
 
 1. Validate the inventory structure:
 
-```bash
-ansible-inventory -i inventory.yml --graph
-ansible-inventory -i inventory.yml --list
-```
+    ```bash
+    ansible-inventory -i inventory.yml --graph
+    ansible-inventory -i inventory.yml --list
+    ```
 
-1. Create a service account in CloudVision (CVaaS):
+2. Create a service account in CloudVision (CVaaS):
 
-[Steps to create service accounts on CloudVision - AVD==5.4](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision)
+    [Steps to create service accounts on CloudVision - AVD==5.4](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision)
