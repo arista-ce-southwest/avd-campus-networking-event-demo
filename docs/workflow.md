@@ -76,24 +76,31 @@ The build.yml playbook is responsible for generating both structured AVD configu
         devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
 ```
 
-`arista.avd.eos_designs`
+**`arista.avd.eos_designs`**
 
 ![AVD eos_designs Role Diagram](./images/avd_eos_designs_role_diagram.png)
 
 Purpose:
 Generates structured configuration data models from your inventory (`inventory.yml`, `group_vars`, `host_vars`) and produces fabric-wide documentation.
 
-Outputs:
-  
-* YAML device data under structured_configs/
-* Markdown documentation under documentation/fabric/
+**Outputs:**
 
-Includes:
+```yaml
+vars:
+  fabric_dir_name: 'fabric'
+  fabric_dir: '{{ playbook_dir }}/docs/documentation/{{ fabric_dir_name }}'
+```
 
-* Interface assignments
-* BGP/EVPN design and settings
-* VLAN and SVI definitions
-* Underlay and overlay routing logic
+- YAML device data under `structured_configs/`
+- Markdown documentation rended under GIT paged directory `/docs/documentation/fabric/`
+
+**Includes:**
+
+- Interface assignments
+- BGP/EVPN design and settings
+- VLAN and SVI definitions
+- Underlay and overlay routing logic
+
 
 <!-- #TODO: Copy code for playbooks - Deploy -->
 
