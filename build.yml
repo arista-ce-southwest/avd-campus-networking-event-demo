@@ -9,7 +9,13 @@
     - name: Generate AVD Structured Configurations and Fabric Documentation
       ansible.builtin.import_role:
         name: arista.avd.eos_designs
+      vars:
+        fabric_dir_name: 'fabric'
+        fabric_dir: '{{ playbook_dir }}/docs/documentation/{{ fabric_dir_name }}'
 
     - name: Generate Device Configurations and Documentation
       ansible.builtin.import_role:
         name: arista.avd.eos_cli_config_gen
+      vars:
+        devices_dir_name: 'devices'
+        devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
