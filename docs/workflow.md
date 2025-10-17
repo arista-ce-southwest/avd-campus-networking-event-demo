@@ -87,7 +87,7 @@ Generates structured configuration data models from your inventory (`inventory.y
 
 1. Markdown Documentation
 
-    rendered documenation of the "fabric"
+    - Markdown documentation rended under GIT paged directory `/docs/documentation/fabric/`
 
     ```yaml
     vars:
@@ -98,7 +98,6 @@ Generates structured configuration data models from your inventory (`inventory.y
 2. Structured Configuration Data
 
     - YAML device data under `structured_configs/`
-    - Markdown documentation rended under GIT paged directory `/docs/documentation/fabric/`
 
 **Includes:**
 
@@ -106,6 +105,20 @@ Generates structured configuration data models from your inventory (`inventory.y
 - BGP/EVPN design and settings
 - VLAN and SVI definitions
 - Underlay and overlay routing logic
+
+**How the Roles Work Together:**
+
+- `eos_designs:` Defines what the network should do — processes inventory, computes interface IPs, routing, VLANs, and fabric topology, and exports structured YAML data.
+- `eos_cli_config_gen:` Defines how to implement it — reads structured YAML data, renders CLI syntax using Jinja2 templates, and produces device-ready configuration files.
+
+**Key Concept:**
+
+| Role      | Function                          |
+| ----------- | ------------------------------------ |
+| `eos_designs`       | :material-check:     Fetch resource  |
+| `PUT`       | :material-check-all: Update resource |
+| `DELETE`    | :material-close:     Delete resource |
+
 
 
 <!-- #TODO: Copy code for playbooks - Deploy -->
