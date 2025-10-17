@@ -49,7 +49,7 @@ graph TD
 ```
 
 **Key Highlights:**
-
+<!-- FIXME: Change bullets from Astrisk to dash -->
 * AVD serves as the automation source for configuration generation.
 * CVaaS is the central deployment and orchestration platform.
 * Core switches provide L3 services and DHCP relay.
