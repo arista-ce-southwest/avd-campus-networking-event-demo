@@ -29,6 +29,13 @@ nav:
   - Topology Overview: topology.md
   - Automation Workflow: workflow.md
   - AVD Environment Setup: setup.md
+  - Documentation: 
+      - Fabric:
+          - CAMPUS Documentation: documentation/fabric/CAMPUS-documentation.md
+      - Device:
+          - SC-B1-Core1: documentation/devices/SC-B1-Core1.md
+          - SC-B1-Core2: documentation/devices/SC-B1-Core2.md
+          - SC-B1-IDF1: documentation/devices/SC-B1-IDF1.md
   - References: references.md
 
 markdown_extensions:
