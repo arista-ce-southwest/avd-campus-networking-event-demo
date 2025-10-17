@@ -7,25 +7,25 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Arista Validated Design (AVD) Campus Deployment &amp; Operations Demo" name="description"/>
 <meta content="Arista CE Southwest" name="author"/>
-<link href="https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/setup/" rel="canonical"/>
-<link href="../workflow/" rel="prev"/>
-<link href="../documentation/fabric/CAMPUS-documentation/" rel="next"/>
-<link href="../assets/images/favicon.png" rel="icon"/>
+<link href="https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/documentation/fabric/CAMPUS-documentation/" rel="canonical"/>
+<link href="../../../setup/" rel="prev"/>
+<link href="../../devices/SC-B1-Core1/" rel="next"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.22" name="generator"/>
-<title>AVD Environment Setup - Arista Campus Networking Demo</title>
-<link href="../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<title>CAMPUS Documentation - Arista Campus Networking Demo</title>
+<link href="../../../assets/stylesheets/main.84d31ad4.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body data-md-color-accent="blue" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#avd-environment-setup">
+<a class="md-skip" href="#campus">
           Skip to content
         </a>
 </div>
@@ -33,7 +33,7 @@
 </div>
 <header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="Arista Campus Networking Demo" class="md-header__button md-logo" data-md-component="logo" href=".." title="Arista Campus Networking Demo">
+<a aria-label="Arista Campus Networking Demo" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Arista Campus Networking Demo">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v2h1a1 1 0 0 1 1 1h7v2h-7a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1H2v-2h7a1 1 0 0 1 1-1h1v-2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path></svg>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
@@ -49,7 +49,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              AVD Environment Setup
+              CAMPUS Documentation
             
           </span>
 </div>
@@ -107,7 +107,7 @@
 <div class="md-grid">
 <ul class="md-tabs__list">
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="..">
+<a class="md-tabs__link" href="../../..">
         
   
   
@@ -118,7 +118,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../topology/">
+<a class="md-tabs__link" href="../../../topology/">
         
   
   
@@ -129,7 +129,7 @@
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../workflow/">
+<a class="md-tabs__link" href="../../../workflow/">
         
   
   
@@ -139,8 +139,8 @@
 
       </a>
 </li>
-<li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href="./">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../setup/">
         
   
   
@@ -150,8 +150,8 @@
 
       </a>
 </li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../documentation/fabric/CAMPUS-documentation/">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="./">
           
   
   
@@ -160,7 +160,7 @@
         </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../references/">
+<a class="md-tabs__link" href="../../../references/">
         
   
   
@@ -180,7 +180,7 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="Arista Campus Networking Demo" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Arista Campus Networking Demo">
+<a aria-label="Arista Campus Networking Demo" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Arista Campus Networking Demo">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v2h1a1 1 0 0 1 1 1h7v2h-7a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1H2v-2h7a1 1 0 0 1 1-1h1v-2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path></svg>
 </a>
     Arista Campus Networking Demo
@@ -197,7 +197,7 @@
 </div>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="..">
+<a class="md-nav__link" href="../../..">
 <span class="md-ellipsis">
     Home
     
@@ -205,7 +205,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../topology/">
+<a class="md-nav__link" href="../../../topology/">
 <span class="md-ellipsis">
     Topology Overview
     
@@ -213,25 +213,63 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../workflow/">
+<a class="md-nav__link" href="../../../workflow/">
 <span class="md-ellipsis">
     Automation Workflow
     
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../setup/">
+<span class="md-ellipsis">
+    AVD Environment Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-ellipsis">
+    Documentation
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Fabric
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            Fabric
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
 <span class="md-ellipsis">
-    AVD Environment Setup
+    CAMPUS Documentation
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    AVD Environment Setup
+    CAMPUS Documentation
     
   </span>
 </a>
@@ -242,66 +280,92 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#clone-git-respository">
+<a class="md-nav__link" href="#table-of-contents">
 <span class="md-ellipsis">
-      Clone Git Respository
+      Table of Contents
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#setup-python-virtual-environment">
+<a class="md-nav__link" href="#fabric-switches-and-management-ip">
 <span class="md-ellipsis">
-      Setup Python Virtual Environment
+      Fabric Switches and Management IP
     </span>
 </a>
-</li>
+<nav aria-label="Fabric Switches and Management IP" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#inventory-validation-and-service-account-creation-in-cvp">
+<a class="md-nav__link" href="#fabric-switches-with-inband-management-ip">
 <span class="md-ellipsis">
-      Inventory Validation and Service Account Creation in CVP
+      Fabric Switches with inband Management IP
     </span>
 </a>
 </li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-<span class="md-ellipsis">
-    Documentation
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_5">
-<span class="md-nav__icon md-icon"></span>
-            Documentation
-          </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
-<span class="md-ellipsis">
-    Fabric
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_5_1">
-<span class="md-nav__icon md-icon"></span>
-            Fabric
-          </label>
-<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../documentation/fabric/CAMPUS-documentation/">
+<a class="md-nav__link" href="#fabric-topology">
 <span class="md-ellipsis">
-    CAMPUS Documentation
-    
-  </span>
+      Fabric Topology
+    </span>
 </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fabric-ip-allocation">
+<span class="md-ellipsis">
+      Fabric IP Allocation
+    </span>
+</a>
+<nav aria-label="Fabric IP Allocation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fabric-point-to-point-links">
+<span class="md-ellipsis">
+      Fabric Point-To-Point Links
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#point-to-point-links-node-allocation">
+<span class="md-ellipsis">
+      Point-To-Point Links Node Allocation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#loopback-interfaces-bgp-evpn-peering">
+<span class="md-ellipsis">
+      Loopback Interfaces (BGP EVPN Peering)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#loopback0-interfaces-node-allocation">
+<span class="md-ellipsis">
+      Loopback0 Interfaces Node Allocation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vtep-loopback-vxlan-tunnel-source-interfaces-vteps-only">
+<span class="md-ellipsis">
+      VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vtep-loopback-node-allocation">
+<span class="md-ellipsis">
+      VTEP Loopback Node allocation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -322,7 +386,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../documentation/devices/SC-B1-Core1/">
+<a class="md-nav__link" href="../../devices/SC-B1-Core1/">
 <span class="md-ellipsis">
     SC-B1-Core1
     
@@ -330,7 +394,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../documentation/devices/SC-B1-Core2/">
+<a class="md-nav__link" href="../../devices/SC-B1-Core2/">
 <span class="md-ellipsis">
     SC-B1-Core2
     
@@ -338,7 +402,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../documentation/devices/SC-B1-IDF1/">
+<a class="md-nav__link" href="../../devices/SC-B1-IDF1/">
 <span class="md-ellipsis">
     SC-B1-IDF1
     
@@ -352,7 +416,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../references/">
+<a class="md-nav__link" href="../../../references/">
 <span class="md-ellipsis">
     References
     
@@ -374,25 +438,89 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#clone-git-respository">
+<a class="md-nav__link" href="#table-of-contents">
 <span class="md-ellipsis">
-      Clone Git Respository
+      Table of Contents
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#setup-python-virtual-environment">
+<a class="md-nav__link" href="#fabric-switches-and-management-ip">
 <span class="md-ellipsis">
-      Setup Python Virtual Environment
+      Fabric Switches and Management IP
+    </span>
+</a>
+<nav aria-label="Fabric Switches and Management IP" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fabric-switches-with-inband-management-ip">
+<span class="md-ellipsis">
+      Fabric Switches with inband Management IP
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fabric-topology">
+<span class="md-ellipsis">
+      Fabric Topology
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#inventory-validation-and-service-account-creation-in-cvp">
+<a class="md-nav__link" href="#fabric-ip-allocation">
 <span class="md-ellipsis">
-      Inventory Validation and Service Account Creation in CVP
+      Fabric IP Allocation
     </span>
 </a>
+<nav aria-label="Fabric IP Allocation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fabric-point-to-point-links">
+<span class="md-ellipsis">
+      Fabric Point-To-Point Links
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#point-to-point-links-node-allocation">
+<span class="md-ellipsis">
+      Point-To-Point Links Node Allocation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#loopback-interfaces-bgp-evpn-peering">
+<span class="md-ellipsis">
+      Loopback Interfaces (BGP EVPN Peering)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#loopback0-interfaces-node-allocation">
+<span class="md-ellipsis">
+      Loopback0 Interfaces Node Allocation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vtep-loopback-vxlan-tunnel-source-interfaces-vteps-only">
+<span class="md-ellipsis">
+      VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vtep-loopback-node-allocation">
+<span class="md-ellipsis">
+      VTEP Loopback Node allocation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -401,44 +529,260 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="avd-environment-setup">AVD Environment Setup<a class="headerlink" href="#avd-environment-setup" title="Permanent link">¶</a></h1>
-<p>Ensure your environment meets the following requirements:</p>
+<h1 id="campus">CAMPUS<a class="headerlink" href="#campus" title="Permanent link">¶</a></h1>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Python 3.12+</strong></li>
-<li><strong>Ansible 2.14+</strong></li>
-<li><strong>Arista AVD Collection 5.4+</strong></li>
-<li><strong>CloudVision as a Service</strong> (CVaaS) subscription</li>
-<li><strong>Virtual Environment (venv)</strong> for Python dependency isolation</li>
+<li><a href="#fabric-switches-and-management-ip">Fabric Switches and Management IP</a></li>
+<li><a href="#fabric-switches-with-inband-management-ip">Fabric Switches with inband Management IP</a></li>
+<li><a href="#fabric-topology">Fabric Topology</a></li>
+<li><a href="#fabric-ip-allocation">Fabric IP Allocation</a></li>
+<li><a href="#fabric-point-to-point-links">Fabric Point-To-Point Links</a></li>
+<li><a href="#point-to-point-links-node-allocation">Point-To-Point Links Node Allocation</a></li>
+<li><a href="#loopback-interfaces-bgp-evpn-peering">Loopback Interfaces (BGP EVPN Peering)</a></li>
+<li><a href="#loopback0-interfaces-node-allocation">Loopback0 Interfaces Node Allocation</a></li>
+<li><a href="#vtep-loopback-vxlan-tunnel-source-interfaces-vteps-only">VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)</a></li>
+<li><a href="#vtep-loopback-node-allocation">VTEP Loopback Node allocation</a></li>
 </ul>
-<h2 id="clone-git-respository">Clone Git Respository<a class="headerlink" href="#clone-git-respository" title="Permanent link">¶</a></h2>
-<p>Clone the repository into a local working directory:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:arista-ce-southwest/avd-campus-networking-event-demo.git
-<span class="nb">cd</span><span class="w"> </span>avd-gns3-ztp-cvaas-demo
-</code></pre></div>
-<h2 id="setup-python-virtual-environment">Setup Python Virtual Environment<a class="headerlink" href="#setup-python-virtual-environment" title="Permanent link">¶</a></h2>
-<p>Activate the virtual environment included in the repository:</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
-<span class="nb">source</span><span class="w"> </span>venv/bin/activate
-</code></pre></div>
-<p>Validate that required packages are installed:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-ansible<span class="w"> </span>--version
-</code></pre></div>
-<h2 id="inventory-validation-and-service-account-creation-in-cvp">Inventory Validation and Service Account Creation in CVP<a class="headerlink" href="#inventory-validation-and-service-account-creation-in-cvp" title="Permanent link">¶</a></h2>
-<p>AVD uses an Ansible inventory to define devices, VRFs, VLANs, and SVIs for the demo network.</p>
-<ol>
-<li>
-<p>Validate the inventory structure:</p>
-<div class="highlight"><pre><span></span><code>ansible-inventory<span class="w"> </span>-i<span class="w"> </span>inventory.yml<span class="w"> </span>--graph
-ansible-inventory<span class="w"> </span>-i<span class="w"> </span>inventory.yml<span class="w"> </span>--list
-</code></pre></div>
-</li>
-<li>
-<p>Create a service account in CloudVision (CVaaS):</p>
-<p><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html#steps-to-create-service-accounts-on-cloudvision">Steps to create service accounts on CloudVision - AVD==5.4</a></p>
-</li>
-</ol>
+<h2 id="fabric-switches-and-management-ip">Fabric Switches and Management IP<a class="headerlink" href="#fabric-switches-and-management-ip" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>POD</th>
+<th>Type</th>
+<th>Node</th>
+<th>Management IP</th>
+<th>Platform</th>
+<th>Provisioned in CloudVision</th>
+<th>Serial Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAMPUS</td>
+<td>l3spine</td>
+<td>SC-B1-Core1</td>
+<td>-</td>
+<td>710P</td>
+<td>Provisioned</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CAMPUS</td>
+<td>l3spine</td>
+<td>SC-B1-Core2</td>
+<td>-</td>
+<td>710P</td>
+<td>Provisioned</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CAMPUS</td>
+<td>l2leaf</td>
+<td>SC-B1-IDF1</td>
+<td>-</td>
+<td>710P</td>
+<td>Provisioned</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.</p>
+</blockquote>
+<h3 id="fabric-switches-with-inband-management-ip">Fabric Switches with inband Management IP<a class="headerlink" href="#fabric-switches-with-inband-management-ip" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>POD</th>
+<th>Type</th>
+<th>Node</th>
+<th>Management IP</th>
+<th>Inband Interface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAMPUS</td>
+<td>l3spine</td>
+<td>SC-B1-Core1</td>
+<td>10.10.0.21/24</td>
+<td>None</td>
+</tr>
+<tr>
+<td>CAMPUS</td>
+<td>l3spine</td>
+<td>SC-B1-Core2</td>
+<td>10.10.0.22/24</td>
+<td>None</td>
+</tr>
+<tr>
+<td>CAMPUS</td>
+<td>l2leaf</td>
+<td>SC-B1-IDF1</td>
+<td>10.10.0.10/24</td>
+<td>Vlan10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fabric-topology">Fabric Topology<a class="headerlink" href="#fabric-topology" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Node</th>
+<th>Node Interface</th>
+<th>Peer Type</th>
+<th>Peer Node</th>
+<th>Peer Interface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l3spine</td>
+<td>SC-B1-Core1</td>
+<td>Ethernet1</td>
+<td>mlag_peer</td>
+<td>SC-B1-Core2</td>
+<td>Ethernet1</td>
+</tr>
+<tr>
+<td>l3spine</td>
+<td>SC-B1-Core1</td>
+<td>Ethernet2</td>
+<td>mlag_peer</td>
+<td>SC-B1-Core2</td>
+<td>Ethernet2</td>
+</tr>
+<tr>
+<td>l3spine</td>
+<td>SC-B1-Core1</td>
+<td>Ethernet4</td>
+<td>l2leaf</td>
+<td>SC-B1-IDF1</td>
+<td>Ethernet1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fabric-ip-allocation">Fabric IP Allocation<a class="headerlink" href="#fabric-ip-allocation" title="Permanent link">¶</a></h2>
+<h3 id="fabric-point-to-point-links">Fabric Point-To-Point Links<a class="headerlink" href="#fabric-point-to-point-links" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Uplink IPv4 Pool</th>
+<th>Available Addresses</th>
+<th>Assigned addresses</th>
+<th>Assigned Address %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="point-to-point-links-node-allocation">Point-To-Point Links Node Allocation<a class="headerlink" href="#point-to-point-links-node-allocation" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Node Interface</th>
+<th>Node IP Address</th>
+<th>Peer Node</th>
+<th>Peer Interface</th>
+<th>Peer IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="loopback-interfaces-bgp-evpn-peering">Loopback Interfaces (BGP EVPN Peering)<a class="headerlink" href="#loopback-interfaces-bgp-evpn-peering" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Loopback Pool</th>
+<th>Available Addresses</th>
+<th>Assigned addresses</th>
+<th>Assigned Address %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>172.16.0.0/24</td>
+<td>256</td>
+<td>2</td>
+<td>0.79 %</td>
+</tr>
+</tbody>
+</table>
+<h3 id="loopback0-interfaces-node-allocation">Loopback0 Interfaces Node Allocation<a class="headerlink" href="#loopback0-interfaces-node-allocation" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>POD</th>
+<th>Node</th>
+<th>Loopback0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAMPUS</td>
+<td>SC-B1-Core1</td>
+<td>172.16.0.1/32</td>
+</tr>
+<tr>
+<td>CAMPUS</td>
+<td>SC-B1-Core2</td>
+<td>172.16.0.2/32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vtep-loopback-vxlan-tunnel-source-interfaces-vteps-only">VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)<a class="headerlink" href="#vtep-loopback-vxlan-tunnel-source-interfaces-vteps-only" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>VTEP Loopback Pool</th>
+<th>Available Addresses</th>
+<th>Assigned addresses</th>
+<th>Assigned Address %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="vtep-loopback-node-allocation">VTEP Loopback Node allocation<a class="headerlink" href="#vtep-loopback-node-allocation" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>POD</th>
+<th>Node</th>
+<th>Loopback1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -471,9 +815,9 @@ ansible-inventory<span class="w"> </span>-i<span class="w"> </span>inventory.yml
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-<script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script src="../js/mermaid-init.js"></script>
+<script src="../../../js/mermaid-init.js"></script>
 </body>
 </html>
