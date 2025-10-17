@@ -22,3 +22,17 @@ sequenceDiagram
     CVaaS-->>AVD: Deployment status
   end
 ```
+
+<!-- #TODO: Copy code for basic Ansible file structure breakdown -->
+
+<!-- #TODO: Copy code for playbooks - Build -->
+
+<!-- #TODO: Copy code for playbooks - Deploy -->
+
+<!-- #TODO: Add CV - Studio Workspace Validation -->
+
+<!-- #TODO: Add CV - change ticket provess -->
+
+<!-- #TODO: Add CV - conclusion -->
+
+<!-- #TODO: copy reference code -->
