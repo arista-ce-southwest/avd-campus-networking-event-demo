@@ -36,6 +36,7 @@ nav:
           - SC-B1-Core1: documentation/devices/SC-B1-Core1.md
           - SC-B1-Core2: documentation/devices/SC-B1-Core2.md
           - SC-B1-IDF1: documentation/devices/SC-B1-IDF1.md
+  #TODO: Add Role of Variables Section
   - References: references.md
 
 markdown_extensions:
