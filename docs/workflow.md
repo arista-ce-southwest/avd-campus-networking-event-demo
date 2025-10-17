@@ -7,6 +7,11 @@
   - [AVD Workflow Overview](#avd-workflow-overview)
   - [Inventory Structure](#inventory-structure)
   - [Build Playbook](#build-playbook)
+    - [arista.avd.eos\_designs](#aristaavdeos_designs)
+    - [arista.avd.eos\_cli\_config\_gen](#aristaavdeos_cli_config_gen)
+    - [How the Roles Work Together](#how-the-roles-work-together)
+    - [Key Concept](#key-concept)
+    - [Example Output](#example-output)
 
 ## AVD Workflow Overview
 
@@ -76,7 +81,7 @@ The build.yml playbook is responsible for generating both structured AVD configu
         devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
 ```
 
-**`arista.avd.eos_designs`**
+### arista.avd.eos_designs
 
 ![AVD eos_designs Role Diagram](images/avd_eos_designs_role_diagram.png)
 
@@ -87,7 +92,7 @@ Generates structured configuration data models from your inventory (`inventory.y
 
 1. Markdown Documentation
 
-    - Markdown documentation rended under GIT paged directory `/docs/documentation/fabric/`
+    - Markdown documentation rended under GIT pages directory `/docs/documentation/fabric/`
 
     ```yaml
     vars:
@@ -106,20 +111,87 @@ Generates structured configuration data models from your inventory (`inventory.y
 - VLAN and SVI definitions
 - Underlay and overlay routing logic
 
-**How the Roles Work Together:**
+### arista.avd.eos_cli_config_gen
+
+![AVD eos_cli_config_gen Role Diagram](images/avd_eos_cli_config_gen_diagram.png)
+
+**Purpose:**
+
+Transforms the structured configuration output from eos_designs into CLI-ready EOS configurations using Jinja2 templates.
+
+**Outputs:**
+
+- Flat text configuration files per device in intended/configs/
+- Structured configs for CVP Studio in intended/structured_configs/
+- Device documentation rended under GIT pages directory `/docs/documentation/fabric/`
+
+```yaml
+vars:
+  devices_dir_name: 'devices'
+  devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
+```
+
+**Includes:**
+
+- Complete running-config per device
+- Platform-specific syntax (MLAG, port-channel, BGP, etc.)
+- Configurations ready for EOS or CVaaS deployment
+
+### How the Roles Work Together
 
 - `eos_designs:` Defines what the network should do — processes inventory, computes interface IPs, routing, VLANs, and fabric topology, and exports structured YAML data.
 - `eos_cli_config_gen:` Defines how to implement it — reads structured YAML data, renders CLI syntax using Jinja2 templates, and produces device-ready configuration files.
 
-**Key Concept:**
+### Key Concept
 
-| Role      | Function                          |
-| ----------- | ------------------------------------ |
-| `eos_designs`       | :material-check:     Fetch resource  |
-| `PUT`       | :material-check-all: Update resource |
-| `DELETE`    | :material-close:     Delete resource |
+| **Role**             | **Function**                                                  |
+| -------------------- | ------------------------------------------------------------- |
+| `eos_designs`        | "What should this network do?" (design intent)                |
+| `eos_cli_config_gen` | "What CLI is needed to implement it?" (device implementation) |
 
+### Example Output
 
+```bash
+(venv) $ ansible-playbook -i inventory.yml build.yml 
+
+PLAY [Build Configs] ************************************************************************************************
+
+TASK [arista.avd.eos_designs : Verify Requirements] *********************************************************************************************************************
+AVD version 5.4.0
+Use -v for details.
+ok: [SC-B1-Core1 -> localhost]
+
+TASK [arista.avd.eos_designs : Create required output directories if not present] *********************************************************************************************************************
+ok: [SC-B1-Core1 -> localhost] => (item=/path/to/intended/structured_configs)
+changed: [SC-B1-Core1 -> localhost] => (item=/path/to/docs/documentation/fabric)
+
+TASK [arista.avd.eos_designs : Set eos_designs facts] *********************************************************************************************************************
+ok: [SC-B1-Core1]
+
+TASK [arista.avd.eos_designs : Generate device configuration in structured format] *********************************************************************************************************************
+ok: [SC-B1-Core1 -> localhost]
+ok: [SC-B1-Core2 -> localhost]
+ok: [SC-B1-IDF1 -> localhost]
+
+TASK [arista.avd.eos_designs : Generate fabric documentation] *********************************************************************************************************************
+ok: [SC-B1-Core1 -> localhost]
+
+TASK [arista.avd.eos_designs : Remove avd_switch_facts] *********************************************************************************************************************
+ok: [SC-B1-Core1]
+
+TASK [arista.avd.eos_cli_config_gen : Verify Requirements] *********************************************************************************************************************
+skipping: [SC-B1-Core1]
+
+TASK [arista.avd.eos_cli_config_gen : Generate eos intended configuration and device documentation] *********************************************************************************************************************
+ok: [SC-B1-IDF1 -> localhost]
+ok: [SC-B1-Core2 -> localhost]
+ok: [SC-B1-Core1 -> localhost]
+
+PLAY RECAP **********************************************************************************************************
+SC-B1-Core1                : ok=7    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+SC-B1-Core2                : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+SC-B1-IDF1                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
 
 <!-- #TODO: Copy code for playbooks - Deploy -->
 
