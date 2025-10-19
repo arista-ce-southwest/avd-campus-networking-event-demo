@@ -7,11 +7,15 @@
   - [AVD Workflow Overview](#avd-workflow-overview)
   - [Inventory Structure](#inventory-structure)
   - [Build Playbook](#build-playbook)
-    - [arista.avd.eos\_designs](#aristaavdeos_designs)
-    - [arista.avd.eos\_cli\_config\_gen](#aristaavdeos_cli_config_gen)
+    - [**`arista.avd.eos_designs`**](#aristaavdeos_designs)
+    - [**`arista.avd.eos_cli_config_gen`**](#aristaavdeos_cli_config_gen)
     - [How the Roles Work Together](#how-the-roles-work-together)
     - [Key Concept](#key-concept)
-    - [Example Output](#example-output)
+    - [Example Output build.yml](#example-output-buildyml)
+  - [Deploy Playbook](#deploy-playbook)
+    - [**`arista.avd.cv_deploy`**](#aristaavdcv_deploy)
+    - [Role Workflow](#role-workflow)
+    - [Example Output deploy-studio.yml](#example-output-deploy-studioyml)
 
 ## AVD Workflow Overview
 
@@ -81,11 +85,12 @@ The build.yml playbook is responsible for generating both structured AVD configu
         devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
 ```
 
-### arista.avd.eos_designs
+### **`arista.avd.eos_designs`**
 
 ![AVD eos_designs Role Diagram](images/avd_eos_designs_role_diagram.png)
 
-Purpose:
+**Purpose:**
+
 Generates structured configuration data models from your inventory (`inventory.yml`, `group_vars`, `host_vars`) and produces fabric-wide documentation.
 
 **Outputs:**
@@ -111,7 +116,7 @@ Generates structured configuration data models from your inventory (`inventory.y
 - VLAN and SVI definitions
 - Underlay and overlay routing logic
 
-### arista.avd.eos_cli_config_gen
+### **`arista.avd.eos_cli_config_gen`**
 
 ![AVD eos_cli_config_gen Role Diagram](images/avd_eos_cli_config_gen_diagram.png)
 
@@ -149,7 +154,7 @@ vars:
 | `eos_designs`        | "What should this network do?" (design intent)                |
 | `eos_cli_config_gen` | "What CLI is needed to implement it?" (device implementation) |
 
-### Example Output
+### Example Output build.yml
 
 ```bash
 (venv) $ ansible-playbook -i inventory.yml build.yml 
@@ -194,6 +199,70 @@ SC-B1-IDF1                 : ok=2    changed=0    unreachable=0    failed=0    s
 ```
 
 <!-- #TODO: Copy code for playbooks - Deploy -->
+## Deploy Playbook
+
+The deploy-studio.yml playbook uses the arista.avd.cv_deploy role to upload device configurations to CloudVision as-a-Service (CVaaS) or CloudVision Portal (CVP).
+
+```yaml
+---
+# deploy-studio.yml
+- name: Deploy Configurations to Devices Using CloudVision Portal # (1)!
+  hosts: CAMPUS
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Push Configuration to CVaaS Studio
+      ansible.builtin.import_role:
+        name: arista.avd.cv_deploy
+```
+
+### **`arista.avd.cv_deploy`**
+
+![AVD cv_deploy Role Diagram](images/avd_cv_deploy_diagram.png)
+
+**Purpose:**
+
+The cv_deploy role automates deployment of generated EOS configurations to CloudVision.
+It connects to CVaaS using an API token and uploads configurations as Studio Configlets, ready for review and activation.
+
+**Key Functions:**
+
+- Uploads intended configurations from intended/configs/
+- Synchronizes devices and configuration assignments in CVaaS
+- Supports Config Studio mode for pre-change proposals
+- Handles tagging, provisioning, and verification tasks
+- Optionally triggers Studio proposals for change control workflows
+
+### Role Workflow
+
+`cv_deploy` executes the following workflow:
+
+- Reads intended configurations from intended/configs/
+- Authenticates to CVaaS via cv_server and cv_token
+- Creates or updates Configlets in CloudVision Studio
+- Assigns Configlets to corresponding devices
+- Optionally initiates proposals for review and approval
+- Validates assignments and provides execution summary
+
+### Example Output deploy-studio.yml
+
+```bash
+(venv) # ansible-playbook -i inventory.yml deploy-studio.yml
+
+PLAY [Deploy Configurations to Devices Using CloudVision Portal] **************************************
+
+TASK [arista.avd.cv_deploy : Verify Requirements] *****************************************************
+AVD version 5.4.0
+Use -v for details.
+ok: [SC-B1-Core1 -> localhost]
+
+TASK [arista.avd.cv_deploy : Deploy device configurations and tags to CloudVision] ********************
+changed: [SC-B1-Core1 -> localhost]
+
+PLAY RECAP ********************************************************************************************
+SC-B1-Core1   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+```
 
 <!-- #TODO: Add CV - Studio Workspace Validation -->
 
