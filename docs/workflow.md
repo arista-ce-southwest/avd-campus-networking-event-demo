@@ -15,7 +15,13 @@
   - [Deploy Playbook](#deploy-playbook)
     - [**`arista.avd.cv_deploy`**](#aristaavdcv_deploy)
     - [Role Workflow](#role-workflow)
+    - [Summary](#summary)
     - [Example Output deploy-studio.yml](#example-output-deploy-studioyml)
+  - [Submit Pending Change Control via CloudVision as-a-Service (CVaaS)](#submit-pending-change-control-via-cloudvision-as-a-service-cvaas)
+    - [:compass: Review the Studio Workspace](#compass-review-the-studio-workspace)
+    - [:memo: Review Pending Change Control](#memo-review-pending-change-control)
+    - [:rocket: Approve and Execute the Change Control](#rocket-approve-and-execute-the-change-control)
+    - [:white\_check\_mark: Post-Execution Validation](#white_check_mark-post-execution-validation)
 
 ## AVD Workflow Overview
 
@@ -238,11 +244,22 @@ It connects to CVaaS using an API token and uploads configurations as Studio Con
 `cv_deploy` executes the following workflow:
 
 - Reads intended configurations from intended/configs/
-- Authenticates to CVaaS via cv_server and cv_token
+- Authenticates using the inventory file
+  
+    ```yaml
+    cv_inventory_hostname: "cvaas"
+    ```
+
 - Creates or updates Configlets in CloudVision Studio
 - Assigns Configlets to corresponding devices
 - Optionally initiates proposals for review and approval
 - Validates assignments and provides execution summary
+
+### Summary
+
+| Role                       | Function                                          | Output Directory            | Purpose                                                       |
+| -------------------------- | ------------------------------------------------- | --------------------------- | ------------------------------------------------------------- |
+| **`arista.avd.cv_deploy`** | Deploys device configurations to CVaaS/CVP Studio | `intended/configs/` → CVaaS | Automates configuration publishing and device synchronization |
 
 ### Example Output deploy-studio.yml
 
@@ -261,12 +278,70 @@ changed: [SC-B1-Core1 -> localhost]
 
 PLAY RECAP ********************************************************************************************
 SC-B1-Core1   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
 ```
 
-<!-- #TODO: Add CV - Studio Workspace Validation -->
+## Submit Pending Change Control via CloudVision as-a-Service (CVaaS)
 
-<!-- #TODO: Add CV - change ticket provess -->
+Once configurations have been deployed using the `deploy-studio.yml` playbook, CloudVision automatically generates a **Studio workspace** and corresponding **Change Control (CC)** proposal for operator review. This workflow ensures that all device changes follow a consistent approval and execution process directly from the CVaaS interface.
+
+---
+
+### :compass: Review the Studio Workspace
+
+After deployment:
+
+1. A new **Studio Workspace** is automatically created under the configured project in CVaaS.
+2. Each device’s **intended configuration** is visible and version-controlled.
+3. Differences between the **current** and **intended** running configurations are displayed in the diff viewer.
+4. CVaaS validates configuration syntax and highlights any merge conflicts before submission.
+
+This provides a full audit trail of configuration changes — making it easy to trace updates, rollback, or troubleshoot deployment logic.
+
+![CVaaS Studio Workspace](images/cvaas_studio_workspace_submitted.png)
+
+---
+
+### :memo: Review Pending Change Control
+
+Once the workspace is validated, CVaaS automatically generates a **Pending Change Control** request. This represents the set of configuration changes that will be applied to managed devices once approved.
+
+Within the **Change Control** view, operators can:
+
+- Review the **scope of devices** impacted  
+- Validate **configuration differences**  
+- Confirm **pre-check validations** (e.g., reachability, syntax, compliance)  
+- Ensure **dependencies** or **sequences** are properly handled
+
+![CVaaS Change Control Pending](images/cvaas_cc_pending.png)
+
+---
+
+### :rocket: Approve and Execute the Change Control
+
+When the pending Change Control has been reviewed and validated:
+
+1. Click the **pending change ticket** in CVaaS  
+2. Review the proposed changes in the diff viewer  
+3. Click **“Approve and Execute”** when ready to proceed  
+
+CVaaS will then push the intended configurations to all targeted devices in the fabric.  
+During execution, CloudVision performs automatic validation, monitors deployment progress, and provides detailed logs per device.
+
+![CVaaS Change Control Approved](images/cvaas_cc_approve.png)
+
+---
+
+### :white_check_mark: Post-Execution Validation
+
+Once the Change Control completes successfully:
+
+- The workspace will be marked as **“Executed”**  
+- All assigned devices reflect the **new intended state**  
+- The execution report provides timestamps, status per device, and operator attribution  
+
+This process ensures full visibility, traceability, and compliance for every change deployed through CVaaS.
+
+![CVaaS Change Control Successful](images/cvaas_cc_successful.png)
 
 <!-- #TODO: Add CV - conclusion -->
 
