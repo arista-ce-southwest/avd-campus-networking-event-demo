@@ -1,33 +1,10 @@
 # Automation Workflow
 
-## Table of Contents
-
-- [Automation Workflow](#automation-workflow)
-  - [Table of Contents](#table-of-contents)
-  - [AVD Workflow Overview](#avd-workflow-overview)
-  - [Inventory Structure](#inventory-structure)
-  - [Build Playbook](#build-playbook)
-    - [**`arista.avd.eos_designs`**](#aristaavdeos_designs)
-    - [**`arista.avd.eos_cli_config_gen`**](#aristaavdeos_cli_config_gen)
-    - [How the Roles Work Together](#how-the-roles-work-together)
-    - [Key Concept](#key-concept)
-    - [Example Output build.yml](#example-output-buildyml)
-  - [Deploy Playbook](#deploy-playbook)
-    - [**`arista.avd.cv_deploy`**](#aristaavdcv_deploy)
-    - [Role Workflow](#role-workflow)
-    - [Summary](#summary)
-    - [Example Output deploy-studio.yml](#example-output-deploy-studioyml)
-  - [Submit Pending Change Control via CloudVision as-a-Service (CVaaS)](#submit-pending-change-control-via-cloudvision-as-a-service-cvaas)
-    - [:compass: Review the Studio Workspace](#review-the-studio-workspace)
-    - [:memo: Review Pending Change Control](#review-pending-change-control)
-    - [:rocket: Approve and Execute the Change Control](#approve-and-execute-the-change-control)
-    - [:white_check_mark: Post-Execution Validation](#post-execution-validation)
-  - [Conclusion](#conclusion)
-  - [References](#references)
-
 ## AVD Workflow Overview
 
 This document outlines the workflow for using Arista Ansible Validated Designs (AVD) to automate and deploy network configurations to EOS devices via CloudVision as-a-Service (CVaaS).
+
+<!-- revise workflow diagram -->
 
 ```mermaid
 sequenceDiagram
@@ -67,7 +44,6 @@ project_root/
 └── ansible.cfg                # Ansible configuration file. Specifies inventory location, connection settings, and AVD-specific options.
 ```
 
-<!-- #TODO: Copy code for playbooks - Build -->
 ## Build Playbook
 
 The build.yml playbook is responsible for generating both structured AVD configurations and device-specific CLI-ready configurations. It leverages two core AVD roles: eos_designs and eos_cli_config_gen.
@@ -206,7 +182,6 @@ SC-B1-Core2                : ok=2    changed=0    unreachable=0    failed=0    s
 SC-B1-IDF1                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
-<!-- #TODO: Copy code for playbooks - Deploy -->
 ## Deploy Playbook
 
 The deploy-studio.yml playbook uses the arista.avd.cv_deploy role to upload device configurations to CloudVision as-a-Service (CVaaS) or CloudVision Portal (CVP).
