@@ -18,10 +18,12 @@
     - [Summary](#summary)
     - [Example Output deploy-studio.yml](#example-output-deploy-studioyml)
   - [Submit Pending Change Control via CloudVision as-a-Service (CVaaS)](#submit-pending-change-control-via-cloudvision-as-a-service-cvaas)
-    - [:compass: Review the Studio Workspace](#compass-review-the-studio-workspace)
-    - [:memo: Review Pending Change Control](#memo-review-pending-change-control)
-    - [:rocket: Approve and Execute the Change Control](#rocket-approve-and-execute-the-change-control)
-    - [:white\_check\_mark: Post-Execution Validation](#white_check_mark-post-execution-validation)
+    - [:compass: Review the Studio Workspace](#review-the-studio-workspace)
+    - [:memo: Review Pending Change Control](#review-pending-change-control)
+    - [:rocket: Approve and Execute the Change Control](#approve-and-execute-the-change-control)
+    - [:white_check_mark: Post-Execution Validation](#post-execution-validation)
+  - [Conclusion](#conclusion)
+  - [References](#references)
 
 ## AVD Workflow Overview
 
@@ -286,11 +288,11 @@ Once configurations have been deployed using the `deploy-studio.yml` playbook, C
 
 ---
 
-### :compass: Review the Studio Workspace
+### :compass: Review the Studio Workspace {#review-the-studio-workspace}
 
 After deployment:
 
-1. A new **Studio Workspace** is automatically created under the configured project in CVaaS.
+1. A new **Studio Workspace** is automatically created in CVaaS.
 2. Each device’s **intended configuration** is visible and version-controlled.
 3. Differences between the **current** and **intended** running configurations are displayed in the diff viewer.
 4. CVaaS validates configuration syntax and highlights any merge conflicts before submission.
@@ -301,7 +303,7 @@ This provides a full audit trail of configuration changes — making it easy to 
 
 ---
 
-### :memo: Review Pending Change Control
+### :memo: Review Pending Change Control {#review-pending-change-control}
 
 Once the workspace is validated, CVaaS automatically generates a **Pending Change Control** request. This represents the set of configuration changes that will be applied to managed devices once approved.
 
@@ -316,7 +318,7 @@ Within the **Change Control** view, operators can:
 
 ---
 
-### :rocket: Approve and Execute the Change Control
+### :rocket: Approve and Execute the Change Control {#approve-and-execute-the-change-control}
 
 When the pending Change Control has been reviewed and validated:
 
@@ -331,7 +333,7 @@ During execution, CloudVision performs automatic validation, monitors deployment
 
 ---
 
-### :white_check_mark: Post-Execution Validation
+### :white_check_mark: Post-Execution Validation {#post-execution-validation}
 
 Once the Change Control completes successfully:
 
@@ -343,6 +345,38 @@ This process ensures full visibility, traceability, and compliance for every cha
 
 ![CVaaS Change Control Successful](images/cvaas_cc_successful.png)
 
-<!-- #TODO: Add CV - conclusion -->
+## Conclusion
 
-<!-- #TODO: copy reference code -->
+This workflow demonstrates a complete end-to-end process for deploying and managing a campus fabric using **Arista AVD** and **CloudVision as-a-Service (CVaaS)**:
+
+- **Inventory Validation:** Ensures that your Ansible inventory is correctly structured with device, VRF, and VLAN definitions.
+- **Build Configurations:** Generates structured configuration data and CLI-ready EOS configurations using the `eos_designs` and `eos_cli_config_gen` roles.
+- **Deploy Configurations:** Pushes the rendered configurations to CVaaS Studio, creates workspaces, and generates pending change control tickets.
+- **Change Control Execution:** Approves and executes configuration changes in the fabric with automated verification.
+- **Documentation:** Maintains detailed, Markdown-based documentation for both fabric-level and device-level configurations.
+
+Following this workflow ensures reproducible, validated, and auditable network configuration deployments, reducing manual errors and operational overhead.
+
+---
+
+## References
+
+### Getting Started
+
+- [Install Arista AVD](https://avd.arista.com/5.4/docs/installation/collection-installation.html) – Step-by-step installation instructions.
+- [Getting Started Guide](https://avd.arista.com/5.4/docs/getting-started/intro-to-ansible-and-avd.html) – Intro to Ansible and AVD concepts.
+- [Campus Fabric Example](https://avd.arista.com/5.4/ansible_collections/arista/avd/examples/campus-fabric/index.html) – Example configuration for a campus network fabric.
+
+### Arista AVD Roles
+
+- [eos_designs](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/eos_designs/index.html) – Generates structured configs and fabric documentation.
+- [eos_cli_config_gen](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/eos_cli_config_gen/index.html) – Converts structured configs to EOS CLI configurations.
+- [cv_deploy](https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html) – Pushes configurations to CVaaS Studio.
+
+### Additional Resources
+
+- [Arista NetDevOps Community](https://github.com/arista-netdevops-community) – Community projects and discussions.
+- [Arista AVD Documentation](https://avd.arista.com/5.4/index.html) – Comprehensive AVD reference.
+- [Ansible Galaxy: arista.avd](https://galaxy.ansible.com/ui/repo/published/arista/avd/) – Collection download and role documentation.
+- [Arista ANTA Framework](https://anta.arista.com/stable/) – Automated Network Test Automation framework.
+- [Arista PyAVD](https://avd.arista.com/5.4/docs/pyavd/pyavd.html) – Python library for generating AVD structured data.
