@@ -12,6 +12,7 @@ theme:
     - search.highlight
     - search.suggest
     - content.code.copy
+    - content.tabs.link
   palette:
     - scheme: default
       primary: indigo
