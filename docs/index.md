@@ -5,7 +5,7 @@ This demo showcases a modern campus network architecture using **Arista Validate
 
 ---
 
-## 🚀 Quick Links
+## :rocket: Quick Links
 
 - [Topology Overview](topology.md)
 - [Automation Workflow](workflow.md)
