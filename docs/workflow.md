@@ -27,6 +27,8 @@ sequenceDiagram
   end
 ```
 
+---
+
 ## Inventory Structure
 
 The following is the recommended Ansible file structure for an Arista Validated Design (AVD) campus deployment. This layout ensures that device-specific variables, group variables, and playbooks are organized for both clarity and scalability.
@@ -43,6 +45,8 @@ project_root/
 ├── deploy.yml                 # Playbook to push the rendered configurations to devices via CVaaS or directly via EOS API.
 └── ansible.cfg                # Ansible configuration file. Specifies inventory location, connection settings, and AVD-specific options.
 ```
+
+---
 
 ## Build Playbook
 
@@ -68,6 +72,8 @@ The build.yml playbook is responsible for generating both structured AVD configu
         devices_dir_name: 'devices'
         devices_dir: '{{ playbook_dir }}/docs/documentation/{{ devices_dir_name }}'
 ```
+
+---
 
 ### **`arista.avd.eos_designs`**
 
@@ -100,6 +106,9 @@ Generates structured configuration data models from your inventory (`inventory.y
 - VLAN and SVI definitions
 - Underlay and overlay routing logic
 
+---
+
+
 ### **`arista.avd.eos_cli_config_gen`**
 
 ![AVD eos_cli_config_gen Role Diagram](images/avd_eos_cli_config_gen_diagram.png)
@@ -126,10 +135,14 @@ vars:
 - Platform-specific syntax (MLAG, port-channel, BGP, etc.)
 - Configurations ready for EOS or CVaaS deployment
 
+---
+
 ### How the Roles Work Together
 
 - `eos_designs:` Defines what the network should do — processes inventory, computes interface IPs, routing, VLANs, and fabric topology, and exports structured YAML data.
 - `eos_cli_config_gen:` Defines how to implement it — reads structured YAML data, renders CLI syntax using Jinja2 templates, and produces device-ready configuration files.
+
+---
 
 ### Key Concept
 
@@ -137,6 +150,8 @@ vars:
 | -------------------- | ------------------------------------------------------------- |
 | `eos_designs`        | "What should this network do?" (design intent)                |
 | `eos_cli_config_gen` | "What CLI is needed to implement it?" (device implementation) |
+
+---
 
 ### Example Output build.yml
 
@@ -182,6 +197,8 @@ SC-B1-Core2                : ok=2    changed=0    unreachable=0    failed=0    s
 SC-B1-IDF1                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
+---
+
 ## Deploy Playbook
 
 The deploy-studio.yml playbook uses the arista.avd.cv_deploy role to upload device configurations to CloudVision as-a-Service (CVaaS) or CloudVision Portal (CVP).
@@ -198,6 +215,8 @@ The deploy-studio.yml playbook uses the arista.avd.cv_deploy role to upload devi
       ansible.builtin.import_role:
         name: arista.avd.cv_deploy
 ```
+
+---
 
 ### **`arista.avd.cv_deploy`**
 
@@ -216,6 +235,8 @@ It connects to CVaaS using an API token and uploads configurations as Studio Con
 - Handles tagging, provisioning, and verification tasks
 - Optionally triggers Studio proposals for change control workflows
 
+---
+
 ### Role Workflow
 
 `cv_deploy` executes the following workflow:
@@ -232,11 +253,15 @@ It connects to CVaaS using an API token and uploads configurations as Studio Con
 - Optionally initiates proposals for review and approval
 - Validates assignments and provides execution summary
 
+---
+
 ### Summary
 
 | Role                       | Function                                          | Output Directory            | Purpose                                                       |
 | -------------------------- | ------------------------------------------------- | --------------------------- | ------------------------------------------------------------- |
 | **`arista.avd.cv_deploy`** | Deploys device configurations to CVaaS/CVP Studio | `intended/configs/` → CVaaS | Automates configuration publishing and device synchronization |
+
+---
 
 ### Example Output deploy-studio.yml
 
@@ -256,6 +281,8 @@ changed: [SC-B1-Core1 -> localhost]
 PLAY RECAP ********************************************************************************************
 SC-B1-Core1   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
+
+---
 
 ## Submit Pending Change Control via CloudVision as-a-Service (CVaaS)
 
