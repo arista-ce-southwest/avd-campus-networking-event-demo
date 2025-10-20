@@ -1,5 +1,7 @@
 # AVD Environment Setup
 
+## Software Requirements
+
 Ensure your environment meets the following requirements:
 
 - **Python 3.12+**

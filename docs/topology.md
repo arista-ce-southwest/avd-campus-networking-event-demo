@@ -2,9 +2,9 @@
 
 The demo topology includes:
 
-* L2 Leaf: SC-B1-IDF1 (inband management VLAN 10, DHCP server endpoint)
-* L3 Spine/Core: SC-B1-Core1 / SC-B1-Core2 (DHCP relay, BGP peering, SVI routing)
-* Access Devices: APs and PCs connected via VLANs 10, 11, and 12
+- L2 Leaf: SC-B1-IDF1 (inband management VLAN 10, DHCP server endpoint)
+- L3 Spine/Core: SC-B1-Core1 / SC-B1-Core2 (DHCP relay, BGP peering, SVI routing)
+- Access Devices: APs and PCs connected via VLANs 10, 11, and 12
 
 ```mermaid
 graph TD
@@ -15,7 +15,7 @@ graph TD
     end
 
     %% Core Layer
-    subgraph "Core or Spine Layer"
+    subgraph "Spine Layer (MLAG)"
         Core1[SC-B1-Core1 - L3 Spine, DHCP Relay, BGP, VRF Routing]
         Core2[SC-B1-Core2 - L3 Spine, DHCP Relay, BGP, VRF Routing]
     end
@@ -27,7 +27,7 @@ graph TD
 
     %% Endpoint Layer
     subgraph "Access Devices"
-        APs[Access Points - VLANs 10 and 11]
+        APs[Access Points - mgmt-vlan10 and SSID-vlan11]
         PCs[PC Clients - VLAN 12]
     end
 
@@ -50,7 +50,7 @@ graph TD
 
 **Key Highlights:**
 
-* AVD serves as the automation source for configuration generation.
-* CVaaS is the central deployment and orchestration platform.
-* Core switches provide L3 services and DHCP relay.
-* Access devices (APs and PCs) connect through VLANs defined in the demo fabric
+- AVD serves as the automation source for configuration generation.
+- CVaaS is the central deployment and orchestration platform.
+- Core switches provide L3 services and DHCP relay.
+- Access devices (APs and PCs) connect through VLANs defined in the demo fabric
