@@ -291,8 +291,6 @@ Explore the YAML variables for each device group:
         profile: AP-PROFILE
     ```
 
-<!-- #TODO: ADD Linked content tabs ofr group_vars -->
-
 These files often map directly to Jinja2 templates in the eos_designs role, defining how underlay and overlay protocols are generated.
 
 Host Variables (`host_vars/`)
@@ -300,6 +298,69 @@ Host Variables (`host_vars/`)
 Host variables define unique, per-device attributes:
 
 <!-- #TODO: ADD Linked content tabs ofr host_vars -->
+
+=== "SC-B1-Core1.yml"
+
+    ```yaml
+    custom_structured_configuration_vlan_interfaces:
+      - name: Vlan4093
+        mtu: null
+      - name: Vlan4094
+        mtu: null
+    ```
+
+=== "SC-B1-Core2.yml"
+
+    ```yaml
+    custom_structured_configuration_vlan_interfaces:
+      - name: Vlan4093
+        mtu: null
+      - name: Vlan4094
+        mtu: null
+    ```
+
+=== "SC-B1-IDF1.yml"
+
+    ```yaml
+    ---
+    ### Host Specific data structure
+    ### This switch host houses the DHCP Server for the topology
+
+    dhcp_servers:
+    - disabled: false
+        vrf: default
+        subnets:
+        - subnet: 10.10.0.0/24
+            name: Management
+            default_gateway: 10.10.0.1
+            dns_servers:
+            - 8.8.8.8
+            ranges:
+            - start: 10.10.0.5
+                end: 10.10.0.20
+        - subnet: 10.11.0.0/24
+            name: WLAN
+            default_gateway: 10.11.0.1
+            dns_servers:
+            - 8.8.8.8
+            ranges:
+            - start: 10.11.0.5
+                end: 10.11.0.20
+        - subnet: 10.12.0.0/24
+            name: PC
+            default_gateway: 10.12.0.1
+            dns_servers:
+            - 8.8.8.8
+            ranges:
+            - start: 10.12.0.5
+                end: 10.12.0.20
+
+    custom_structured_configuration_vlan_interfaces:
+    - name: Vlan10
+        ip_address: 10.10.0.10/24
+        mtu: null
+        dhcp_server_ipv4: true
+    ```
 
 Host-specific data drives individual interface naming, BGP neighbor creation, and device-specific VLAN/SVI mappings.
 
