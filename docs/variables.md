@@ -52,7 +52,244 @@ These YAML files are consumed by the AVD roles, converted into structured data m
 
 Group variable files define data that applies to multiple hosts or logical device groups.
 
-examples:
+Explore the YAML variables for each device group:
+
+=== "CAMPUS.yml"
+
+    ```yaml
+    ---
+    ### Campus Fabric Data Structure
+    fabric_name: CAMPUS
+
+    # OOB Management network default gateway.
+    mgmt_gateway: null
+    mgmt_interface: null
+    mgmt_interface_vrf: default
+
+    # local users
+    local_users:
+    - name: admin
+        privilege: 15
+        role: network-admin
+        sha512_password: "$6$eucN5ngreuExDgwS$xnD7T8jO..GBDX0DUlp.hn.W7yW94xTjSanqgaQGBzPIhDAsyAl9N4oScHvOMvf07uVBFI4mKMxwdVEUVKgY/."
+
+    # AAA Authorization
+    aaa_authorization:
+    exec:
+        default: local
+
+    # dns servers.
+    name_servers:
+    - 8.8.4.4
+    - 8.8.8.8
+
+    # NTP Servers IP or DNS name, first NTP server will be preferred, and sourced from Management VRF
+    ntp_settings:
+    server_vrf: default
+    servers:
+        - name: time.google.com
+        - name: pool.ntp.org
+
+    # CloudVision Portal definitions
+    # Set Inventory for CloudVision host.
+    cv_inventory_hostname: "cvaas"
+    cvp_instance_ips:
+    - apiserver.arista.io
+    terminattr_smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
+    terminattr_ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+    terminattr_disable_aaa: true
+    terminattr_cvaddr: "apiserver.arista.io:443"
+    terminattr_cvauth: "token-secure,/tmp/cv-onboarding-token"
+    # terminattr_cvvrf: MGMT # VRF Management
+    terminattr_taillogs: true
+
+    ```
+
+=== "BD1.yml"
+
+    ```yaml
+    ---
+    ### Building Fabric Data Structure
+    ### Here is where physical switch-to-switch connection scaffolding is contructured
+
+    # Spine Switches
+    l3spine:
+    defaults:
+        platform: 710P
+        spanning_tree_mode: mstp
+        spanning_tree_priority: 4096
+        loopback_ipv4_pool: 172.16.0.0/24
+        mlag_peer_ipv4_pool: 169.254.0.0/24
+        mlag_peer_l3_ipv4_pool: 172.61.1.0/24
+        virtual_router_mac_address: 00:1c:73:00:dc:01
+        mlag_interfaces: [Ethernet1, Ethernet2]
+        bgp_as: 65200
+    node_groups:
+        - group: SPINES
+        nodes:
+            - name: SC-B1-Core1
+            id: 1
+            inband_mgmt_ip: 10.10.0.21/24
+            - name: SC-B1-Core2
+            id: 2
+            inband_mgmt_ip: 10.10.0.22/24
+
+    # IDF - Leaf Switches
+    l2leaf:
+    defaults:
+        platform: 710P
+        spanning_tree_mode: mstp
+        spanning_tree_priority: 16384
+        mlag_peer_ipv4_pool: 169.254.0.0/24
+        inband_mgmt_subnet: 10.10.0.0/24
+        inband_mgmt_vlan: 10
+    node_groups:
+        - group: IDF1
+        mlag: false
+        uplink_interfaces: [Ethernet1,Ethernet2]
+        filter:
+            tags: [ "10", "11", "12" ]
+        nodes:
+            - name: SC-B1-IDF1
+            id: 3
+            inband_mgmt_ip: 10.10.0.10/24
+            uplink_switches: [SC-B1-Core1,SC-B1-Core2]
+            uplink_switch_interfaces: [Ethernet4]
+
+    ```
+
+=== "SPINES.yml"
+
+    ```yaml
+    ---
+    ### group_vars/SPINES.yml
+
+    type: l3spine     # Must be either spine|l3spine
+    ```
+
+=== "LEAVES.yml"
+
+    ```yaml
+    ---
+    ### group_vars/LEAVES.yml
+
+    type: l2leaf     # Must be l2leaf
+    ```
+
+=== "NETWORK_SERVICES.yml"
+
+    ```yaml
+    ---
+    ### group_vars/NETWORK_SERVICES.yml
+    ### Here is where Network logic is structured such as VARP and dynamoc routing
+
+    # Campus routing 
+    underlay_routing_protocol: ebgp
+
+    tenants:
+    - name: CAMPUS
+        vrfs:
+        - name: default
+            l3_interfaces:
+            - interfaces: [ Ethernet3 ]
+                ip_addresses: [ 10.0.1.2/30 ]
+                nodes: [ SC-B1-Core1 ]
+                description: Firewall Peering
+                enabled: true
+            - interfaces: [ Ethernet3 ]
+                ip_addresses: [ 10.0.2.2/30 ]
+                nodes: [ SC-B1-Core2 ]
+                description: Firewall Peering
+                enabled: true
+            bgp_peer_groups:
+            - name: FIREWALL
+                remote_as: 65100
+                send_community: all
+                maximum_routes: 0
+            bgp_peers:
+            - ip_address: 10.0.1.1
+                peer_group: FIREWALL
+                nodes: [ SC-B1-Core1 ]
+            - ip_address: 10.0.2.1
+                peer_group: FIREWALL
+                nodes: [ SC-B1-Core2 ]
+            svis:
+            - id: 10
+                name: 'Inband_Management_Network'
+                tags: ["10"]
+                enabled: true
+                ip_virtual_router_addresses:
+                - 10.10.0.1
+                ip_helpers:
+                - ip_helper: 10.10.0.10
+                nodes:
+                - node: SC-B1-Core1
+                    ip_address: 10.10.0.21/24
+                - node: SC-B1-Core2
+                    ip_address: 10.10.0.22/24
+            - id: 11
+                name: 'WLAN'
+                tags: ["11"]
+                enabled: true
+                ip_virtual_router_addresses:
+                - 10.11.0.1
+                ip_helpers:
+                - ip_helper: 10.10.0.6
+                nodes:
+                - node: SC-B1-Core1
+                    ip_address: 10.11.0.21/24
+                - node: SC-B1-Core2
+                    ip_address: 10.11.0.22/24
+            - id: 12
+                name: 'PC'
+                tags: ["12"]
+                enabled: true
+                ip_virtual_router_addresses:
+                - 10.12.0.1
+                ip_helpers:
+                - ip_helper: 10.10.0.10
+                nodes:
+                - node: SC-B1-Core1
+                    ip_address: 10.12.0.21/24
+                - node: SC-B1-Core2
+                    ip_address: 10.12.0.22/24
+    ```
+
+=== "NETWORK_PORTS.yml"
+
+    ```yaml
+    ---
+    ### group_vars/NETWORK_PORTS.yml
+    ### This construct contains the port profiles and other port data structures need to render port 
+    ### specific configuration and apply to individual or range of interfaces.
+
+    port_profiles:
+    - profile: PC-PROFILE
+        mode: "access"
+        spanning_tree_portfast: edge
+        spanning_tree_bpduguard: enabled
+        native_vlan: 1
+        vlans: 12
+    - profile: AP-PROFILE
+        mode: "trunk"
+        native_vlan: 10
+        vlans: 10,11
+
+    # ---------------- IDF1 ----------------
+    network_ports:
+    - switches:
+        - SC-B\d+-IDF(\d+) # regex match LEAF1A & LEAF1B
+        switch_ports:
+        - Ethernet10-16
+        description: PC
+        profile: PC-PROFILE
+    - switches:
+        - SC-B\d+-IDF(\d+) # regex match LEAF1A & LEAF1B
+        switch_ports:
+        - Ethernet3-9
+        description: AP
+        profile: AP-PROFILE
+    ```
 
 <!-- #TODO: ADD Linked content tabs ofr group_vars -->
 
