@@ -62,15 +62,12 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
-  - js/mermaid-init.js
-
 plugins:
   - search
   - mermaid2
 
 extra:
+  copyright: "Copyright &copy; 2019 - 2025 Arista Networks"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/arista-ce-southwest/avd-campus-networking-event-demo
