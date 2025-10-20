@@ -9,7 +9,7 @@
 <meta content="Arista CE Southwest" name="author"/>
 <link href="https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/workflow/" rel="canonical"/>
 <link href="../topology/" rel="prev"/>
-<link href="../setup/" rel="next"/>
+<link href="../variables/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.22" name="generator"/>
 <title>Automation Workflow - Arista Campus Networking Demo</title>
@@ -140,6 +140,17 @@
       </a>
 </li>
 <li class="md-tabs__item">
+<a class="md-tabs__link" href="../variables/">
+        
+  
+  
+    
+  
+  AVD Variables and Data Model
+
+      </a>
+</li>
+<li class="md-tabs__item">
 <a class="md-tabs__link" href="../setup/">
         
   
@@ -214,9 +225,209 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Automation Workflow
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     Automation Workflow
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#avd-workflow-overview">
+<span class="md-ellipsis">
+      AVD Workflow Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inventory-structure">
+<span class="md-ellipsis">
+      Inventory Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-playbook">
+<span class="md-ellipsis">
+      Build Playbook
+    </span>
+</a>
+<nav aria-label="Build Playbook" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdeos_designs">
+<span class="md-ellipsis">
+      arista.avd.eos_designs
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdeos_cli_config_gen">
+<span class="md-ellipsis">
+      arista.avd.eos_cli_config_gen
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-the-roles-work-together">
+<span class="md-ellipsis">
+      How the Roles Work Together
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-concept">
+<span class="md-ellipsis">
+      Key Concept
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-output-buildyml">
+<span class="md-ellipsis">
+      Example Output build.yml
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-playbook">
+<span class="md-ellipsis">
+      Deploy Playbook
+    </span>
+</a>
+<nav aria-label="Deploy Playbook" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdcv_deploy">
+<span class="md-ellipsis">
+      arista.avd.cv_deploy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#role-workflow">
+<span class="md-ellipsis">
+      Role Workflow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#summary">
+<span class="md-ellipsis">
+      Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-output-deploy-studioyml">
+<span class="md-ellipsis">
+      Example Output deploy-studio.yml
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#submit-pending-change-control-via-cloudvision-as-a-service-cvaas">
+<span class="md-ellipsis">
+      Submit Pending Change Control via CloudVision as-a-Service (CVaaS)
+    </span>
+</a>
+<nav aria-label="Submit Pending Change Control via CloudVision as-a-Service (CVaaS)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-the-studio-workspace">
+<span class="md-ellipsis">
+      Review the Studio Workspace
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-pending-change-control">
+<span class="md-ellipsis">
+      Review Pending Change Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#approve-and-execute-the-change-control">
+<span class="md-ellipsis">
+      Approve and Execute the Change Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#post-execution-validation">
+<span class="md-ellipsis">
+      Post-Execution Validation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conclusion">
+<span class="md-ellipsis">
+      Conclusion
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#references">
+<span class="md-ellipsis">
+      References
+    </span>
+</a>
+<nav aria-label="References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-started">
+<span class="md-ellipsis">
+      Getting Started
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arista-avd-roles">
+<span class="md-ellipsis">
+      Arista AVD Roles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#additional-resources">
+<span class="md-ellipsis">
+      Additional Resources
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../variables/">
+<span class="md-ellipsis">
+    AVD Variables and Data Model
     
   </span>
 </a>
@@ -230,31 +441,31 @@
 </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
 <span class="md-ellipsis">
     Documentation
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_5">
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
 <span class="md-nav__icon md-icon"></span>
             Documentation
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
 <span class="md-ellipsis">
     Fabric
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_5_1">
+<nav aria-expanded="false" aria-labelledby="__nav_6_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_1">
 <span class="md-nav__icon md-icon"></span>
             Fabric
           </label>
@@ -271,16 +482,16 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
 <span class="md-ellipsis">
     Device
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_5_2">
+<nav aria-expanded="false" aria-labelledby="__nav_6_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_2">
 <span class="md-nav__icon md-icon"></span>
             Device
           </label>
@@ -332,6 +543,189 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#avd-workflow-overview">
+<span class="md-ellipsis">
+      AVD Workflow Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inventory-structure">
+<span class="md-ellipsis">
+      Inventory Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-playbook">
+<span class="md-ellipsis">
+      Build Playbook
+    </span>
+</a>
+<nav aria-label="Build Playbook" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdeos_designs">
+<span class="md-ellipsis">
+      arista.avd.eos_designs
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdeos_cli_config_gen">
+<span class="md-ellipsis">
+      arista.avd.eos_cli_config_gen
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-the-roles-work-together">
+<span class="md-ellipsis">
+      How the Roles Work Together
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-concept">
+<span class="md-ellipsis">
+      Key Concept
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-output-buildyml">
+<span class="md-ellipsis">
+      Example Output build.yml
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-playbook">
+<span class="md-ellipsis">
+      Deploy Playbook
+    </span>
+</a>
+<nav aria-label="Deploy Playbook" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aristaavdcv_deploy">
+<span class="md-ellipsis">
+      arista.avd.cv_deploy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#role-workflow">
+<span class="md-ellipsis">
+      Role Workflow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#summary">
+<span class="md-ellipsis">
+      Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-output-deploy-studioyml">
+<span class="md-ellipsis">
+      Example Output deploy-studio.yml
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#submit-pending-change-control-via-cloudvision-as-a-service-cvaas">
+<span class="md-ellipsis">
+      Submit Pending Change Control via CloudVision as-a-Service (CVaaS)
+    </span>
+</a>
+<nav aria-label="Submit Pending Change Control via CloudVision as-a-Service (CVaaS)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-the-studio-workspace">
+<span class="md-ellipsis">
+      Review the Studio Workspace
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-pending-change-control">
+<span class="md-ellipsis">
+      Review Pending Change Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#approve-and-execute-the-change-control">
+<span class="md-ellipsis">
+      Approve and Execute the Change Control
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#post-execution-validation">
+<span class="md-ellipsis">
+      Post-Execution Validation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conclusion">
+<span class="md-ellipsis">
+      Conclusion
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#references">
+<span class="md-ellipsis">
+      References
+    </span>
+</a>
+<nav aria-label="References" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-started">
+<span class="md-ellipsis">
+      Getting Started
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arista-avd-roles">
+<span class="md-ellipsis">
+      Arista AVD Roles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#additional-resources">
+<span class="md-ellipsis">
+      Additional Resources
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -339,27 +733,354 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="automation-workflow">Automation Workflow<a class="headerlink" href="#automation-workflow" title="Permanent link">¶</a></h1>
-<p>This workflow demonstrates how AVD integrates with GitHub Actions and CVaaS for automated configuration deployment.</p>
+<h2 id="avd-workflow-overview">AVD Workflow Overview<a class="headerlink" href="#avd-workflow-overview" title="Permanent link">¶</a></h2>
+<p>This document outlines the workflow for using Arista Ansible Validated Designs (AVD) to automate and deploy network configurations to EOS devices via CloudVision as-a-Service (CVaaS).</p>
+<!-- revise workflow diagram -->
 <pre class="mermaid"><code>sequenceDiagram
-  participant User
+  autonumber
+  actor User
   participant AVD
   participant GH as GitHub
   participant CVaaS
   participant Device
 
-  par Offline Configuration Prep
-    User-&gt;&gt;AVD: Render configuration using AVD framework
+  par Configuration Prep
+    User-&gt;&gt;AVD: Modify YAML-based variable definitions
+    AVD-&gt;&gt;AVD: Run build Ansible playbook
+    Note over User,AVD: AVD data models are rendered locally in offline mode
+    AVD-&gt;&gt;GH: Commit configuration to source control
+    Note over AVD,GH: Configuration verified and ready for deployment
   end
   par Automation Workflow
-    AVD-&gt;&gt;GH: Commit render output
-    GH-&gt;&gt;AVD: Trigger build.yml
-    AVD-&gt;&gt;+CVaaS: Execute deploy-studio.yml
-    CVaaS-&gt;&gt;Device: Push configuration to device
-    Device--&gt;&gt;CVaaS: Acknowledge deployment
-    CVaaS--&gt;&gt;AVD: Deployment status
+    GH--&gt;&gt;+GH: Git Actions triggered upon PR Approval
+    Note over GH: Git Actions executes deploy-studio.yml 
+    GH-&gt;&gt;-CVaaS: Trigger deploy Ansible playbook
+    CVaaS-&gt;&gt;+CVaaS: Workspace validate of configuration
+    CVaaS-&gt;&gt;-CVaaS: Create Change Control ticket
+    Note over CVaaS: Change Control is ready for approval
+    CVaaS-&gt;&gt;+Device: Push configuration to device
+    Device--&gt;&gt;-CVaaS: Confirm configuration deployment
+    CVaaS--&gt;&gt;AVD: Report deployment status
   end</code></pre>
+<hr/>
+<h2 id="inventory-structure">Inventory Structure<a class="headerlink" href="#inventory-structure" title="Permanent link">¶</a></h2>
+<p>The following is the recommended Ansible file structure for an Arista Validated Design (AVD) campus deployment. This layout ensures that device-specific variables, group variables, and playbooks are organized for both clarity and scalability.</p>
+<div class="highlight"><pre><span></span><code>project_root/
+├──<span class="w"> </span>inventory.yml<span class="w">              </span><span class="c1"># Primary inventory file listing all devices and groups in the lab/fabric.</span>
+├──<span class="w"> </span>group_vars/<span class="w">                </span><span class="c1"># Directory containing variables applied to device groups.</span>
+│<span class="w">   </span>├──<span class="w"> </span>all.yml<span class="w">                </span><span class="c1"># Global variables applied to all devices, e.g., NTP, logging, common VLANs.</span>
+│<span class="w">   </span>├──<span class="w"> </span>&lt;group&gt;.yml<span class="w">            </span><span class="c1"># Group-specific variables for a subset of devices (e.g., LEAF, SPINE).</span>
+├──<span class="w"> </span>host_vars/<span class="w">                 </span><span class="c1"># Directory containing device-specific configuration variables.</span>
+│<span class="w">   </span>└──<span class="w"> </span>&lt;device-hostname&gt;.yml<span class="w">  </span><span class="c1"># Host-level variables overriding group/global defaults (e.g., loopback IP, mgmt interface).</span>
+├──<span class="w"> </span>build.yml<span class="w">                  </span><span class="c1"># Playbook to render structured configurations from templates using inventory data.</span>
+├──<span class="w"> </span>deploy.yml<span class="w">                 </span><span class="c1"># Playbook to push the rendered configurations to devices via CVaaS or directly via EOS API.</span>
+└──<span class="w"> </span>ansible.cfg<span class="w">                </span><span class="c1"># Ansible configuration file. Specifies inventory location, connection settings, and AVD-specific options.</span>
+</code></pre></div>
+<hr/>
+<h2 id="build-playbook">Build Playbook<a class="headerlink" href="#build-playbook" title="Permanent link">¶</a></h2>
+<p>The build.yml playbook is responsible for generating both structured AVD configurations and device-specific CLI-ready configurations. It leverages two core AVD roles: eos_designs and eos_cli_config_gen.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Configs</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CAMPUS</span>
+<span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate AVD Structured Configurations and Fabric Documentation</span>
+<span class="w">      </span><span class="nt">ansible.builtin.import_role</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arista.avd.eos_designs</span>
+<span class="w">      </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">fabric_dir_name</span><span class="p">:</span><span class="w"> </span><span class="s">'fabric'</span>
+<span class="w">        </span><span class="nt">fabric_dir</span><span class="p">:</span><span class="w"> </span><span class="s">'{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/docs/documentation/{{</span><span class="nv"> </span><span class="s">fabric_dir_name</span><span class="nv"> </span><span class="s">}}'</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate Device Configurations and Documentation</span>
+<span class="w">      </span><span class="nt">ansible.builtin.import_role</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arista.avd.eos_cli_config_gen</span>
+<span class="w">      </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">devices_dir_name</span><span class="p">:</span><span class="w"> </span><span class="s">'devices'</span>
+<span class="w">        </span><span class="nt">devices_dir</span><span class="p">:</span><span class="w"> </span><span class="s">'{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/docs/documentation/{{</span><span class="nv"> </span><span class="s">devices_dir_name</span><span class="nv"> </span><span class="s">}}'</span>
+</code></pre></div>
+<hr/>
+<h3 id="aristaavdeos_designs"><strong><code>arista.avd.eos_designs</code></strong><a class="headerlink" href="#aristaavdeos_designs" title="Permanent link">¶</a></h3>
+<p><img alt="AVD eos_designs Role Diagram" src="../images/avd_eos_designs_role_diagram.png"/></p>
+<p><strong>Purpose:</strong></p>
+<p>Generates structured configuration data models from your inventory (<code>inventory.yml</code>, <code>group_vars</code>, <code>host_vars</code>) and produces fabric-wide documentation.</p>
+<p><strong>Outputs:</strong></p>
+<ol>
+<li>
+<p>Markdown Documentation</p>
+<ul>
+<li>Markdown documentation rended under GIT pages directory <code>/docs/documentation/fabric/</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fabric_dir_name</span><span class="p">:</span><span class="w"> </span><span class="s">'fabric'</span>
+<span class="w">  </span><span class="nt">fabric_dir</span><span class="p">:</span><span class="w"> </span><span class="s">'{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/docs/documentation/{{</span><span class="nv"> </span><span class="s">fabric_dir_name</span><span class="nv"> </span><span class="s">}}'</span>
+</code></pre></div>
+</li>
+<li>
+<p>Structured Configuration Data</p>
+<ul>
+<li>YAML device data under <code>structured_configs/</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>Includes:</strong></p>
+<ul>
+<li>Interface assignments</li>
+<li>BGP/EVPN design and settings</li>
+<li>VLAN and SVI definitions</li>
+<li>Underlay and overlay routing logic</li>
+</ul>
+<hr/>
+<h3 id="aristaavdeos_cli_config_gen"><strong><code>arista.avd.eos_cli_config_gen</code></strong><a class="headerlink" href="#aristaavdeos_cli_config_gen" title="Permanent link">¶</a></h3>
+<p><img alt="AVD eos_cli_config_gen Role Diagram" src="../images/avd_eos_cli_config_gen_diagram.png"/></p>
+<p><strong>Purpose:</strong></p>
+<p>Transforms the structured configuration output from eos_designs into CLI-ready EOS configurations using Jinja2 templates.</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Flat text configuration files per device in intended/configs/</li>
+<li>Structured configs for CVP Studio in intended/structured_configs/</li>
+<li>Device documentation rended under GIT pages directory <code>/docs/documentation/fabric/</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">devices_dir_name</span><span class="p">:</span><span class="w"> </span><span class="s">'devices'</span>
+<span class="w">  </span><span class="nt">devices_dir</span><span class="p">:</span><span class="w"> </span><span class="s">'{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/docs/documentation/{{</span><span class="nv"> </span><span class="s">devices_dir_name</span><span class="nv"> </span><span class="s">}}'</span>
+</code></pre></div>
+<p><strong>Includes:</strong></p>
+<ul>
+<li>Complete running-config per device</li>
+<li>Platform-specific syntax (MLAG, port-channel, BGP, etc.)</li>
+<li>Configurations ready for EOS or CVaaS deployment</li>
+</ul>
+<hr/>
+<h3 id="how-the-roles-work-together">How the Roles Work Together<a class="headerlink" href="#how-the-roles-work-together" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>eos_designs:</code> Defines what the network should do — processes inventory, computes interface IPs, routing, VLANs, and fabric topology, and exports structured YAML data.</li>
+<li><code>eos_cli_config_gen:</code> Defines how to implement it — reads structured YAML data, renders CLI syntax using Jinja2 templates, and produces device-ready configuration files.</li>
+</ul>
+<hr/>
+<h3 id="key-concept">Key Concept<a class="headerlink" href="#key-concept" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th><strong>Role</strong></th>
+<th><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eos_designs</code></td>
+<td>"What should this network do?" (design intent)</td>
+</tr>
+<tr>
+<td><code>eos_cli_config_gen</code></td>
+<td>"What CLI is needed to implement it?" (device implementation)</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h3 id="example-output-buildyml">Example Output build.yml<a class="headerlink" href="#example-output-buildyml" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.yml<span class="w"> </span>build.yml<span class="w"> </span>
+
+PLAY<span class="w"> </span><span class="o">[</span>Build<span class="w"> </span>Configs<span class="o">]</span><span class="w"> </span>************************************************************************************************
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Verify<span class="w"> </span>Requirements<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+AVD<span class="w"> </span>version<span class="w"> </span><span class="m">5</span>.4.0
+Use<span class="w"> </span>-v<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Create<span class="w"> </span>required<span class="w"> </span>output<span class="w"> </span>directories<span class="w"> </span><span class="k">if</span><span class="w"> </span>not<span class="w"> </span>present<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">(</span><span class="nv">item</span><span class="o">=</span>/path/to/intended/structured_configs<span class="o">)</span>
+changed:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">(</span><span class="nv">item</span><span class="o">=</span>/path/to/docs/documentation/fabric<span class="o">)</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Set<span class="w"> </span>eos_designs<span class="w"> </span>facts<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Generate<span class="w"> </span>device<span class="w"> </span>configuration<span class="w"> </span><span class="k">in</span><span class="w"> </span>structured<span class="w"> </span>format<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core2<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-IDF1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Generate<span class="w"> </span>fabric<span class="w"> </span>documentation<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_designs<span class="w"> </span>:<span class="w"> </span>Remove<span class="w"> </span>avd_switch_facts<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_cli_config_gen<span class="w"> </span>:<span class="w"> </span>Verify<span class="w"> </span>Requirements<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+skipping:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.eos_cli_config_gen<span class="w"> </span>:<span class="w"> </span>Generate<span class="w"> </span>eos<span class="w"> </span>intended<span class="w"> </span>configuration<span class="w"> </span>and<span class="w"> </span>device<span class="w"> </span>documentation<span class="o">]</span><span class="w"> </span>*********************************************************************************************************************
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-IDF1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core2<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>**********************************************************************************************************
+SC-B1-Core1<span class="w">                </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">7</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">1</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">1</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+SC-B1-Core2<span class="w">                </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+SC-B1-IDF1<span class="w">                 </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>
+</code></pre></div>
+<hr/>
+<h2 id="deploy-playbook">Deploy Playbook<a class="headerlink" href="#deploy-playbook" title="Permanent link">¶</a></h2>
+<p>The deploy-studio.yml playbook uses the arista.avd.cv_deploy role to upload device configurations to CloudVision as-a-Service (CVaaS) or CloudVision Portal (CVP).</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="c1"># deploy-studio.yml</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Configurations to Devices Using CloudVision Portal</span><span class="w"> </span><span class="c1"># (1)!</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CAMPUS</span>
+<span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Configuration to CVaaS Studio</span>
+<span class="w">      </span><span class="nt">ansible.builtin.import_role</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arista.avd.cv_deploy</span>
+</code></pre></div>
+<hr/>
+<h3 id="aristaavdcv_deploy"><strong><code>arista.avd.cv_deploy</code></strong><a class="headerlink" href="#aristaavdcv_deploy" title="Permanent link">¶</a></h3>
+<p><img alt="AVD cv_deploy Role Diagram" src="../images/avd_cv_deploy_diagram.png"/></p>
+<p><strong>Purpose:</strong></p>
+<p>The cv_deploy role automates deployment of generated EOS configurations to CloudVision.
+It connects to CVaaS using an API token and uploads configurations as Studio Configlets, ready for review and activation.</p>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li>Uploads intended configurations from intended/configs/</li>
+<li>Synchronizes devices and configuration assignments in CVaaS</li>
+<li>Supports Config Studio mode for pre-change proposals</li>
+<li>Handles tagging, provisioning, and verification tasks</li>
+<li>Optionally triggers Studio proposals for change control workflows</li>
+</ul>
+<hr/>
+<h3 id="role-workflow">Role Workflow<a class="headerlink" href="#role-workflow" title="Permanent link">¶</a></h3>
+<p><code>cv_deploy</code> executes the following workflow:</p>
+<ul>
+<li>Reads intended configurations from intended/configs/</li>
+<li>
+<p>Authenticates using the inventory file</p>
+<div class="highlight"><pre><span></span><code><span class="nt">cv_inventory_hostname</span><span class="p">:</span><span class="w"> </span><span class="s">"cvaas"</span>
+</code></pre></div>
+</li>
+<li>
+<p>Creates or updates Configlets in CloudVision Studio</p>
+</li>
+<li>Assigns Configlets to corresponding devices</li>
+<li>Optionally initiates proposals for review and approval</li>
+<li>Validates assignments and provides execution summary</li>
+</ul>
+<hr/>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Function</th>
+<th>Output Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>arista.avd.cv_deploy</code></strong></td>
+<td>Deploys device configurations to CVaaS/CVP Studio</td>
+<td><code>intended/configs/</code> → CVaaS</td>
+<td>Automates configuration publishing and device synchronization</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h3 id="example-output-deploy-studioyml">Example Output deploy-studio.yml<a class="headerlink" href="#example-output-deploy-studioyml" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span><span class="c1"># ansible-playbook -i inventory.yml deploy-studio.yml</span>
+
+PLAY<span class="w"> </span><span class="o">[</span>Deploy<span class="w"> </span>Configurations<span class="w"> </span>to<span class="w"> </span>Devices<span class="w"> </span>Using<span class="w"> </span>CloudVision<span class="w"> </span>Portal<span class="o">]</span><span class="w"> </span>**************************************
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.cv_deploy<span class="w"> </span>:<span class="w"> </span>Verify<span class="w"> </span>Requirements<span class="o">]</span><span class="w"> </span>*****************************************************
+AVD<span class="w"> </span>version<span class="w"> </span><span class="m">5</span>.4.0
+Use<span class="w"> </span>-v<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
+ok:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>arista.avd.cv_deploy<span class="w"> </span>:<span class="w"> </span>Deploy<span class="w"> </span>device<span class="w"> </span>configurations<span class="w"> </span>and<span class="w"> </span>tags<span class="w"> </span>to<span class="w"> </span>CloudVision<span class="o">]</span><span class="w"> </span>********************
+changed:<span class="w"> </span><span class="o">[</span>SC-B1-Core1<span class="w"> </span>-&gt;<span class="w"> </span>localhost<span class="o">]</span>
+
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>********************************************************************************************
+SC-B1-Core1<span class="w">   </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">1</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+<hr/>
+<h2 id="submit-pending-change-control-via-cloudvision-as-a-service-cvaas">Submit Pending Change Control via CloudVision as-a-Service (CVaaS)<a class="headerlink" href="#submit-pending-change-control-via-cloudvision-as-a-service-cvaas" title="Permanent link">¶</a></h2>
+<p>Once configurations have been deployed using the <code>deploy-studio.yml</code> playbook, CloudVision automatically generates a <strong>Studio workspace</strong> and corresponding <strong>Change Control (CC)</strong> proposal for operator review. This workflow ensures that all device changes follow a consistent approval and execution process directly from the CVaaS interface.</p>
+<hr/>
+<h3 id="review-the-studio-workspace"><img alt="🧭" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9ed.svg" title=":compass:"/> Review the Studio Workspace<a class="headerlink" href="#review-the-studio-workspace" title="Permanent link">¶</a></h3>
+<p>After deployment:</p>
+<ol>
+<li>A new <strong>Studio Workspace</strong> is automatically created in CVaaS.</li>
+<li>Each device’s <strong>intended configuration</strong> is visible and version-controlled.</li>
+<li>Differences between the <strong>current</strong> and <strong>intended</strong> running configurations are displayed in the diff viewer.</li>
+<li>CVaaS validates configuration syntax and highlights any merge conflicts before submission.</li>
+</ol>
+<p>This provides a full audit trail of configuration changes — making it easy to trace updates, rollback, or troubleshoot deployment logic.</p>
+<p><img alt="CVaaS Studio Workspace" src="../images/cvaas_studio_workspace_submitted.png"/></p>
+<hr/>
+<h3 id="review-pending-change-control"><img alt="📝" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4dd.svg" title=":memo:"/> Review Pending Change Control<a class="headerlink" href="#review-pending-change-control" title="Permanent link">¶</a></h3>
+<p>Once the workspace is validated, CVaaS automatically generates a <strong>Pending Change Control</strong> request. This represents the set of configuration changes that will be applied to managed devices once approved.</p>
+<p>Within the <strong>Change Control</strong> view, operators can:</p>
+<ul>
+<li>Review the <strong>scope of devices</strong> impacted  </li>
+<li>Validate <strong>configuration differences</strong> </li>
+<li>Confirm <strong>pre-check validations</strong> (e.g., reachability, syntax, compliance)  </li>
+<li>Ensure <strong>dependencies</strong> or <strong>sequences</strong> are properly handled</li>
+</ul>
+<p><img alt="CVaaS Change Control Pending" src="../images/cvaas_cc_pending.png"/></p>
+<hr/>
+<h3 id="approve-and-execute-the-change-control"><img alt="🚀" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f680.svg" title=":rocket:"/> Approve and Execute the Change Control<a class="headerlink" href="#approve-and-execute-the-change-control" title="Permanent link">¶</a></h3>
+<p>When the pending Change Control has been reviewed and validated:</p>
+<ol>
+<li>Click the <strong>pending change ticket</strong> in CVaaS  </li>
+<li>Review the proposed changes in the diff viewer  </li>
+<li>Click <strong>“Approve and Execute”</strong> when ready to proceed  </li>
+</ol>
+<p>CVaaS will then push the intended configurations to all targeted devices in the fabric.<br/>
+During execution, CloudVision performs automatic validation, monitors deployment progress, and provides detailed logs per device.</p>
+<p><img alt="CVaaS Change Control Approved" src="../images/cvaas_cc_approve.png"/></p>
+<hr/>
+<h3 id="post-execution-validation"><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" title=":white_check_mark:"/> Post-Execution Validation<a class="headerlink" href="#post-execution-validation" title="Permanent link">¶</a></h3>
+<p>Once the Change Control completes successfully:</p>
+<ul>
+<li>The workspace will be marked as <strong>“Executed”</strong> </li>
+<li>All assigned devices reflect the <strong>new intended state</strong> </li>
+<li>The execution report provides timestamps, status per device, and operator attribution  </li>
+</ul>
+<p>This process ensures full visibility, traceability, and compliance for every change deployed through CVaaS.</p>
+<p><img alt="CVaaS Change Control Successful" src="../images/cvaas_cc_successful.png"/></p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>This workflow demonstrates a complete end-to-end process for deploying and managing a campus fabric using <strong>Arista AVD</strong> and <strong>CloudVision as-a-Service (CVaaS)</strong>:</p>
+<ul>
+<li><strong>Inventory Validation:</strong> Ensures that your Ansible inventory is correctly structured with device, VRF, and VLAN definitions.</li>
+<li><strong>Build Configurations:</strong> Generates structured configuration data and CLI-ready EOS configurations using the <code>eos_designs</code> and <code>eos_cli_config_gen</code> roles.</li>
+<li><strong>Deploy Configurations:</strong> Pushes the rendered configurations to CVaaS Studio, creates workspaces, and generates pending change control tickets.</li>
+<li><strong>Change Control Execution:</strong> Approves and executes configuration changes in the fabric with automated verification.</li>
+<li><strong>Documentation:</strong> Maintains detailed, Markdown-based documentation for both fabric-level and device-level configurations.</li>
+</ul>
+<p>Following this workflow ensures reproducible, validated, and auditable network configuration deployments, reducing manual errors and operational overhead.</p>
+<hr/>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
+<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://avd.arista.com/5.4/docs/installation/collection-installation.html">Install Arista AVD</a> – Step-by-step installation instructions.</li>
+<li><a href="https://avd.arista.com/5.4/docs/getting-started/intro-to-ansible-and-avd.html">Getting Started Guide</a> – Intro to Ansible and AVD concepts.</li>
+<li><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/examples/campus-fabric/index.html">Campus Fabric Example</a> – Example configuration for a campus network fabric.</li>
+</ul>
+<h3 id="arista-avd-roles">Arista AVD Roles<a class="headerlink" href="#arista-avd-roles" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/eos_designs/index.html">eos_designs</a> – Generates structured configs and fabric documentation.</li>
+<li><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/eos_cli_config_gen/index.html">eos_cli_config_gen</a> – Converts structured configs to EOS CLI configurations.</li>
+<li><a href="https://avd.arista.com/5.4/ansible_collections/arista/avd/roles/cv_deploy/index.html">cv_deploy</a> – Pushes configurations to CVaaS Studio.</li>
+</ul>
+<h3 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://github.com/arista-netdevops-community">Arista NetDevOps Community</a> – Community projects and discussions.</li>
+<li><a href="https://avd.arista.com/5.4/index.html">Arista AVD Documentation</a> – Comprehensive AVD reference.</li>
+<li><a href="https://galaxy.ansible.com/ui/repo/published/arista/avd/">Ansible Galaxy: arista.avd</a> – Collection download and role documentation.</li>
+<li><a href="https://anta.arista.com/stable/">Arista ANTA Framework</a> – Automated Network Test Automation framework.</li>
+<li><a href="https://avd.arista.com/5.4/docs/pyavd/pyavd.html">Arista PyAVD</a> – Python library for generating AVD structured data.</li>
+</ul>
 </article>
 </div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
 </div>
 <button class="md-top md-icon" data-md-component="top" hidden="" type="button">
@@ -390,9 +1111,7 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
 <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script src="../js/mermaid-init.js"></script>
 </body>
 </html>

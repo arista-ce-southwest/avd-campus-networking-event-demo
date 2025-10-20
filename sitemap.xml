@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/references/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/setup/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/topology/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
+    </url>
+    <url>
+         <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/variables/</loc>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/workflow/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/documentation/devices/SC-B1-Core1/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/documentation/devices/SC-B1-Core2/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/documentation/devices/SC-B1-IDF1/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
     <url>
          <loc>https://arista-ce-southwest.github.io/avd-campus-networking-event-demo/documentation/fabric/CAMPUS-documentation/</loc>
-         <lastmod>2025-10-17</lastmod>
+         <lastmod>2025-10-20</lastmod>
     </url>
 </urlset>
