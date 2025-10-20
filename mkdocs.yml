@@ -28,6 +28,7 @@ nav:
   - Home: index.md
   - Topology Overview: topology.md
   - Automation Workflow: workflow.md
+  - AVD Variables and Data Model: variables.md
   - AVD Environment Setup: setup.md
   - Documentation: 
       - Fabric:
