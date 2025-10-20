@@ -297,8 +297,6 @@ Host Variables (`host_vars/`)
 
 Host variables define unique, per-device attributes:
 
-<!-- #TODO: ADD Linked content tabs ofr host_vars -->
-
 === "SC-B1-Core1.yml"
 
     ```yaml
