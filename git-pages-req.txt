@@ -10,3 +10,4 @@ pymdown-extensions>=10.16.1
 
 # Mermaid integration
 mkdocs-mermaid2-plugin>=1.2.2
+mkdocs-macros-plugin>=0.6.1

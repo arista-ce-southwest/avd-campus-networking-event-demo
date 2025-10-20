@@ -68,6 +68,7 @@ extra_javascript:
 
 plugins:
   - search
+  - macros
   - mermaid2
 
 extra:
