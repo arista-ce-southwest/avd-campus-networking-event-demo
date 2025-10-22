@@ -29,6 +29,7 @@ nav:
   - Home: index.md
   - Topology Overview: topology.md
   - Automation Workflow: workflow.md
+  - Presentation: slides.md
   - AVD Variables and Data Model: variables.md
   - AVD Environment Setup: setup.md
   - Documentation: 
@@ -65,6 +66,9 @@ markdown_extensions:
 plugins:
   - search
   - mermaid2
+
+extra_css:
+  - stylesheets/extra.css
 
 extra:
   copyright: "Copyright &copy; 2019 - 2025 Arista Networks"
