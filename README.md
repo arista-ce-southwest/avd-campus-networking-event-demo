@@ -8,22 +8,30 @@ This repository contains the full AVD (Arista Validated Design) configuration an
 
 ```mermaid
 sequenceDiagram
-  participant User
+  autonumber
+  actor User
   participant AVD
   participant GH as GitHub
   participant CVaaS
   participant Device
   
-  par Offline Configuration Prep
-    User->>AVD: Render configuration using AVD framework
+  par Configuration Prep
+    User->>AVD: Modify YAML-based variable definitions
+    AVD->>AVD: Run build Ansible playbook
+    Note over User,AVD: AVD data models are rendered locally in offline mode
+    AVD->>GH: Commit configuration to source control
+    Note over AVD,GH: Configuration verified and ready for deployment
   end
   par Automation Workflow
-    AVD->>GH: Commit render output
-    GH->>AVD: Trigger build.yml
-    AVD->>+CVaaS: Execute deploy-studio.yml
-    CVaaS->>Device: Push configuration to device
-    Device-->>CVaaS: Acknowledge deployment
-    CVaaS-->>AVD: Deployment status
+    GH-->>+GH: Git Actions triggered upon PR Approval
+    Note over GH: Git Actions executes deploy-studio.yml 
+    GH->>-CVaaS: Trigger deploy Ansible playbook
+    CVaaS->>+CVaaS: Workspace validate of configuration
+    CVaaS->>-CVaaS: Create Change Control ticket
+    Note over CVaaS: Change Control is ready for approval
+    CVaaS->>+Device: Push configuration to device
+    Device-->>-CVaaS: Confirm configuration deployment
+    CVaaS-->>AVD: Report deployment status
   end
 ```
 
