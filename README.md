@@ -119,7 +119,7 @@ graph TD
     end
 
     %% Core Layer
-    subgraph "Core or Spine Layer"
+    subgraph "Spine Layer (MLAG)"
         Core1[SC-B1-Core1 - L3 Spine, DHCP Relay, BGP, VRF Routing]
         Core2[SC-B1-Core2 - L3 Spine, DHCP Relay, BGP, VRF Routing]
     end
@@ -131,7 +131,7 @@ graph TD
 
     %% Endpoint Layer
     subgraph "Access Devices"
-        APs[Access Points - VLANs 10 and 11]
+        APs[Access Points - mgmt-vlan10 and SSID-vlan11]
         PCs[PC Clients - VLAN 12]
     end
 
@@ -150,7 +150,6 @@ graph TD
         Core1 -->|DHCP Relay| Leaf
         Core2 -->|DHCP Relay| Leaf
     end
-
 ```
 
 **Key Highlights:**
