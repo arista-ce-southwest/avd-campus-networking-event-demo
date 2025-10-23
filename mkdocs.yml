@@ -38,6 +38,7 @@ nav:
           - SC-B1-Core1: documentation/devices/SC-B1-Core1.md
           - SC-B1-Core2: documentation/devices/SC-B1-Core2.md
           - SC-B1-IDF1: documentation/devices/SC-B1-IDF1.md
+  - Presentation: slides.md
   - References: references.md
 
 markdown_extensions:
@@ -65,6 +66,9 @@ markdown_extensions:
 plugins:
   - search
   - mermaid2
+
+extra_css:
+  - stylesheets/extra.css
 
 extra:
   copyright: "Copyright &copy; 2019 - 2025 Arista Networks"
