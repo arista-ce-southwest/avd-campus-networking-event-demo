@@ -12,4 +12,5 @@ This demo showcases a modern campus network architecture using **Arista Validate
 - [AVD Variables and Data Model](variables.md)
 - [AVD Environment Setup](setup.md)
 - [Documentaion](documentation/fabric/CAMPUS-documentation.md)
+- [Presentation](slides.md)
 - [References](references.md)

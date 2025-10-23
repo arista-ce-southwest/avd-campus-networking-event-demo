@@ -29,7 +29,6 @@ nav:
   - Home: index.md
   - Topology Overview: topology.md
   - Automation Workflow: workflow.md
-  - Presentation: slides.md
   - AVD Variables and Data Model: variables.md
   - AVD Environment Setup: setup.md
   - Documentation: 
@@ -39,6 +38,7 @@ nav:
           - SC-B1-Core1: documentation/devices/SC-B1-Core1.md
           - SC-B1-Core2: documentation/devices/SC-B1-Core2.md
           - SC-B1-IDF1: documentation/devices/SC-B1-IDF1.md
+  - Presentation: slides.md
   - References: references.md
 
 markdown_extensions:
